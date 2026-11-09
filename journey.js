@@ -1,8 +1,8 @@
 // One Product, Whole Lifecycle: Ostrevia (lumiravostat) film-coated tablets, Halcyon Ridge
 // Pharmaceuticals, from the IND to a post-approval safety label update. Each step names the app,
 // what to do there and the hand-off file it produces; the page reads that file and checks it.
-// The trial data steps use the console's and the trainer's own practice studies, because those
-// apps have no Ostrevia study (said on screen). Keep the file checks in step with the apps.
+// The trial data steps use HRP-301 (VERDANT-1), the Ostrevia phase 3 trial: locked in the CDM
+// console, then mapped in the SDTM trainer from that same locked file. Keep the checks in step.
 
 const GH = 'https://randomthingsonlineatsk-cloud.github.io/';
 const OSTREVIA = 'nce-tablet';
@@ -42,33 +42,38 @@ export const STEPS = [
   },
   {
     id: 'cdm', phase: 'During the trial', title: 'Clean and lock the trial database', app: 'CDM Query & Edit-Check Console', url: GH + 'cdm-query-console/',
-    story: 'The trial runs. Data management writes the edit checks, raises and closes queries with the sites, codes adverse events and medications, and locks the database once every casebook is signed. The console has its own practice studies, so this step uses one of them in place of an Ostrevia trial.',
-    todo: ['Work a study to database lock (mission M11 walks you through it).', 'Hard-lock the database.', 'Export the project file from the Project tab.'],
+    story: 'VERDANT-1 (protocol HRP-301) runs at four sites. Data management answers the edit checks, works the queries with the sites, codes the adverse events and medications, reconciles the SAEs and the central laboratory and IRT transfers, classifies the deviations, and locks the database once every casebook is signed.',
+    todo: ['Start mission M20 “Lock the Ostrevia trial” (Missions tab), or a new HRP-301 project on the Project tab and run the whole study yourself.', 'Finish what is left and hard-lock the database with the lead data manager’s and the sponsor’s signatures.', 'Export the project file from the Project tab.'],
     file: 'CDM console project file (.json)',
     check(j) {
       const r = res();
       if (!need(r, j?.format === 'cdm-query-console-project' && j.project, 'This is not a CDM Query & Edit-Check Console project file. Export one from the console’s Project tab.')) return r;
       const p = j.project;
+      need(r, p.study === 'HRP-301', `This project is study ${p.study ?? 'HLV-204-201'}. The Ostrevia trial is HRP-301 (VERDANT-1): start mission M20 or a new HRP-301 project.`);
       need(r, p.lock?.status === 'hard', `The database is not hard-locked (status: ${p.lock?.status ?? 'open'}). Lock it on the Lock tab.`);
-      const open = (p.queries ?? []).filter((q) => q.status !== 'closed' && q.status !== 'cancelled').length;
-      r.found.push(`Study ${p.study ?? 'HLV-204-201'}, project “${p.name}”`, `Database lock: ${p.lock?.status ?? 'open'}`, `${(p.queries ?? []).length} queries, ${open} still open`);
+      const open = (p.queries ?? []).filter((q) => q.status === 'open' || q.status === 'answered').length;
+      need(r, open === 0, `${open} queries are still open or answered.`);
+      r.found.push(`Study ${p.study ?? 'HLV-204-201'}, project “${p.name}”`, `Database lock: ${p.lock?.status ?? 'open'}`, `${(p.queries ?? []).length} queries raised, ${open} still open`);
       return r;
     },
   },
   {
-    id: 'sdtm', phase: 'During the trial', title: 'Hand over the SDTM package', app: 'SDTM Mapping Trainer', url: GH + 'sdtm-mapping-trainer/',
-    story: 'The locked data go to the standards team. They map the raw forms to CDISC SDTM, write define.xml, clear the conformance rules and hand the package to the analysis programmers. The same datasets later go into Module 5 of the NDA.',
-    todo: ['Map a study (the trainer’s own GLV-12-301, or import the console project from the step before).', 'Run validation until nothing must be fixed; explain what remains.', 'Download the hand-off zip from the Datasets tab.'],
+    id: 'sdtm', phase: 'During the trial', title: 'Map the locked data to SDTM', app: 'SDTM Mapping Trainer', url: GH + 'sdtm-mapping-trainer/',
+    story: 'The locked VERDANT-1 database goes to the standards team, with the IRT’s unblinded list and the central laboratory’s final transfer. They map it to CDISC SDTM, write define.xml, clear the conformance rules and hand the package on. The same datasets go into Module 5 of the NDA.',
+    todo: ['On the Project tab, “Import a CDM Console study” and choose the file from step 2: it opens an HRP-301 project on your own locked data.', 'Map the domains (missions S45 to S47 score them) and run validation until nothing must be fixed; explain what remains.', 'Download the hand-off zip from the Datasets tab.'],
     file: 'SDTM hand-off (.zip, or its handoff.json)',
     check(j) {
       const r = res();
       if (!need(r, j?.format === 'sdtm-trainer-handoff', 'This is not an SDTM Mapping Trainer hand-off. Download it from the Datasets tab (Hand-off to the TLF Programming Lab).')) return r;
+      need(r, j.study?.id === 'HRP-301', `This package is study ${j.study?.id}. Import your locked HRP-301 project file from step 2 into the trainer.`);
+      if (j.study?.id === 'HRP-301') need(r, j.study?.source?.kind === 'learner', 'This package was made from the trainer’s copy of the database, not your own locked file from step 2. Import your project file on the Project tab and build the package again.');
+      if (j.study?.source) need(r, j.study.source.lock === 'hard', `The database it was made from is not hard-locked (${j.study.source.lock}).`);
       const names = (j.datasets ?? []).map((d) => d.name);
       need(r, names.includes('DM'), 'The package has no DM dataset.');
       need(r, j.validation?.mustFix === 0, `${j.validation?.mustFix} issue(s) must still be fixed before hand-off.`);
       const unexplained = (j.validation?.issues ?? []).filter((i) => i.status === 'Open').length;
       need(r, unexplained === 0, `${unexplained} issue(s) have no explanation yet. Explain each one in the trainer (it goes in the reviewer’s guide).`);
-      r.found.push(`Study ${j.study?.id}: ${names.length} datasets (${names.slice(0, 8).join(', ')}${names.length > 8 ? ', …' : ''})`, `${j.standards?.model ?? ''} · ${j.standards?.define ?? ''}`.trim(), `Validation: ${j.validation?.mustFix ?? '?'} must-fix, ${j.validation?.explained ?? 0} explained${unexplained ? `, ${unexplained} still open` : ''}`);
+      r.found.push(`Study ${j.study?.id}${j.study?.source?.kind === 'learner' ? ` from your locked database (“${j.study.source.name}”)` : ''}: ${names.length} datasets (${names.slice(0, 9).join(', ')}${names.length > 9 ? ', …' : ''})`, `${j.standards?.model ?? ''} · ${j.standards?.define ?? ''}`.trim(), `Validation: ${j.validation?.mustFix ?? '?'} must-fix, ${j.validation?.explained ?? 0} explained, ${unexplained} still open`);
       return r;
     },
   },
