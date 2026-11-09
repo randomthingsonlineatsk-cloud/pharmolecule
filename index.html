@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>pharmolecule</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="pharmolecule: papers, training apps and guides on pharma, bioanalysis and drug regulation by Khan Gulrez Shagufa Fazal Ahmed.">
+<link rel="icon" href="data:image/jpeg;base64,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">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one narrow column like a capsule's contents spilling out: identity, a lifecycle path, then every item as a filterable list grouped by kind. */
+:root {
+  --bg: #fbf6f0;        /* the profile picture's cream */
+  --surface: #ffffff;
+  --ink: #1d2a30;       /* the outline ink */
+  --muted: #5d6b70;
+  --line: #e6dccf;
+  --teal: #3f8f90;      /* the capsule cap */
+  --teal-ink: #2c6f70;
+  --teal-soft: #e3f0ee;
+  --dot: #1d2a30;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #121b1e; --surface: #182428; --ink: #ecf1ef; --muted: #9fb0b1; --line: #2a3a3e;
+  --teal: #5fb5b4; --teal-ink: #7fcac8; --teal-soft: #1b3233; --dot: #ecf1ef; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #121b1e; --surface: #182428; --ink: #ecf1ef; --muted: #9fb0b1; --line: #2a3a3e;
+  --teal: #5fb5b4; --teal-ink: #7fcac8; --teal-soft: #1b3233; --dot: #ecf1ef; color-scheme: dark }
+
+* { box-sizing: border-box }
+body { background: var(--bg); color: var(--ink); font: 17px/1.55 var(--body); }
+.wrap { max-width: 860px; margin: 0 auto; padding-block: 40px 56px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+a { color: var(--teal-ink); text-underline-offset: 3px }
+a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; border-radius: 4px }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0 }
+
+/* identity */
+.who { display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: center }
+.logo { width: 132px; height: 132px; border-radius: 50%; display: block; box-shadow: 0 0 0 1px var(--line), 0 10px 30px -14px rgba(29,42,48,.35) }
+.who h1 { font-size: clamp(2.2rem, 6vw, 3.4rem); font-weight: 800; letter-spacing: -.02em; line-height: 1 }
+.who h1 span { color: var(--teal) }
+.tag { font-family: var(--display); font-weight: 500; font-size: 1.15rem; margin: 10px 0 6px }
+.fields { font-family: var(--mono); font-size: .8rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 14px }
+.fields b { color: var(--teal-ink); font-weight: 500 }
+.links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px }
+.links a { font-size: .9rem; text-decoration: none; padding: 5px 12px; border: 1px solid var(--line); border-radius: 999px; color: var(--ink) }
+.links a:hover { border-color: var(--teal); color: var(--teal-ink) }
+.links a.ig { background: var(--teal); border-color: var(--teal); color: var(--bg); font-weight: 600 }
+@media (max-width: 560px) { .who { grid-template-columns: 1fr; gap: 16px } .logo { width: 96px; height: 96px } }
+
+/* section heads */
+.sec { margin-top: 52px }
+.sec > h2 { font-size: 1.5rem; font-weight: 700; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px }
+.sec > h2 small { white-space: nowrap }
+.sec > h2 small { font: 500 .78rem var(--mono); color: var(--muted) }
+.lede { color: var(--muted); margin: 6px 0 18px; max-width: 62ch }
+
+/* lifecycle path: a real sequence, so it is numbered */
+.path { list-style: none; padding: 0; margin: 0; display: grid; gap: 0; counter-reset: step }
+.path li { display: grid; grid-template-columns: 34px 1fr; gap: 14px; position: relative; padding-bottom: 14px }
+.path li::before { counter-increment: step; content: counter(step); width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center;
+  font: 500 .75rem var(--mono); background: var(--teal-soft); color: var(--teal-ink); border: 1.5px solid var(--teal); margin-top: 2px; z-index: 1 }
+.path li:not(:last-child)::after { content: ""; position: absolute; left: 13px; top: 30px; bottom: 0; border-left: 2px dotted var(--teal) }
+.path .stage { font-family: var(--display); font-weight: 700 }
+.path .apps { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: .95rem }
+.path .q { color: var(--muted); font-size: .92rem }
+
+/* filter */
+.bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; position: sticky; top: env(safe-area-inset-top, 0px); background: var(--bg); padding-block: 10px; z-index: 5; border-bottom: 1px solid var(--line) }
+.chip { font: 600 .88rem var(--body); padding: 6px 13px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--ink); cursor: pointer }
+.chip[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--bg) }
+.chip .n { font: 400 .75rem var(--mono); opacity: .7; margin-left: 4px }
+#q { flex: 1 1 180px; min-width: 0; font: 16px var(--body); padding: 7px 12px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--ink) }
+
+/* items */
+.group { margin-top: 30px }
+.group h3 { font-size: 1.05rem; font-weight: 700; display: flex; gap: 10px; align-items: center; margin-bottom: 4px }
+.group h3::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--teal) }
+.group h3.alt::before { background: var(--dot) }
+.group h3.ring::before { background: transparent; border: 2px solid var(--dot); width: 6px; height: 6px }
+.item { display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; padding: 14px 0; border-bottom: 1px solid var(--line) }
+.item > div { min-width: 0 }
+.item .t { font-weight: 600; font-size: 1.02rem }
+.item .t a { color: var(--ink); text-decoration: none }
+.item .t a:hover { color: var(--teal-ink); text-decoration: underline }
+.item .d { color: var(--muted); font-size: .94rem; margin-top: 2px }
+.item .meta { font: .74rem var(--mono); color: var(--muted); margin-top: 6px; display: flex; flex-wrap: wrap; gap: 4px 12px; overflow-wrap: anywhere }
+.item .meta a { color: var(--teal-ink) }
+.badge { font: 500 .7rem var(--mono); letter-spacing: .05em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; background: var(--teal-soft); color: var(--teal-ink); align-self: start; white-space: nowrap }
+.empty { color: var(--muted); padding: 20px 0 }
+@media (max-width: 560px) { .item { grid-template-columns: 1fr } .badge { justify-self: start } }
+
+footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--line); font-size: .88rem; color: var(--muted); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px }
+@media (prefers-reduced-motion: no-preference) { .logo { transition: transform .4s } .logo:hover { transform: rotate(-12deg) } }
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header class="who">
+    <img class="logo" alt="pharmolecule logo: a capsule opening with a molecule between its halves" src="data:image/jpeg;base64,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">
+    <div>
+      <h1>pharm<span>olecule</span></h1>
+      <p class="tag">Breaking down medicine, molecule by molecule.</p>
+      <div class="fields"><b>Pharma</b><span>Bioanalysis</span><span>Drug science</span><span>Regulation</span></div>
+      <nav class="links" aria-label="Profiles">
+        <a class="ig" href="https://www.instagram.com/pharmolecule/" target="_blank" rel="noopener">Instagram @pharmolecule</a>
+        <a href="https://orcid.org/0009-0009-6195-0329" target="_blank" rel="noopener">ORCID</a>
+        <a href="https://github.com/randomthingsonlineatsk-cloud" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.kaggle.com/shagufakhan" target="_blank" rel="noopener">Kaggle</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="sec" aria-labelledby="life">
+    <h2 id="life">One product, whole lifecycle <small>10 stages</small></h2>
+    <p class="lede">Follow one medicine from its gene to its safety reports. Each stage links to a free practice app; the data in every app is fictional.</p>
+    <ol class="path" id="path"></ol>
+  </section>
+
+  <section class="sec" aria-labelledby="all">
+    <h2 id="all">Everything <small id="count"></small></h2>
+    <p class="lede">Research papers, training apps, guides and open code. Open access, free to use.</p>
+    <div class="bar" role="toolbar" aria-label="Filter">
+      <span id="chips" style="display:contents"></span>
+      <input id="q" type="search" placeholder="Search, e.g. eCTD, SDTM, nanomedicine" aria-label="Search">
+    </div>
+    <div id="list"></div>
+  </section>
+
+  <footer>
+    <span>Built by Khan Gulrez Shagufa Fazal Ahmed</span>
+    <span>Updated November 2026</span>
+  </footer>
+</div>
+
+<script>
+// Edit this list to add a paper or an app. kind: paper | app | guide | code
+const GH = 'https://randomthingsonlineatsk-cloud.github.io/';
+const ITEMS = [
+  // Papers
+  { kind: 'paper', id: 'ssrn-6805362', title: 'Expedited regulatory pathways and therapeutic uncertainty governance', desc: 'How FDA, EMA, CDSCO, PMDA and MHRA accept early evidence and govern the uncertainty that remains.', where: 'SSRN 6805362', url: 'https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6805362', tags: 'regulatory expedited accelerated approval conditional' },
+  { kind: 'paper', id: 'ssrn-6958423', title: 'AI-GVP: a governance framework for AI in pharmacovigilance', desc: 'Controls for using AI across good pharmacovigilance practice.', where: 'SSRN 6958423', url: 'https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6958423', tags: 'pv safety artificial intelligence gvp' },
+  { kind: 'paper', id: 'ssrn-6957879', title: 'Human-in-the-loop ICSR processing: a governance framework', desc: 'Where people stay in charge when individual case safety reports are processed with automation.', where: 'SSRN 6957879', url: 'https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6957879', tags: 'pv safety icsr automation ai' },
+  { kind: 'paper', id: 'ssrn-6954978', title: 'DAREM: a framework for integrating real-world evidence', desc: 'Bringing real-world data into regulatory decisions in a structured way.', where: 'SSRN 6954978', url: 'https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6954978', tags: 'rwe real world evidence rwd' },
+  { kind: 'paper', id: 'trei', title: 'Trial representation equity in drug-resistant TB trials', desc: 'The TREI instrument applied to TB-PRACTECAL, ZeNix and STREAM Stage 2. Submitted to MSF Scientific Days Asia 2026.', where: 'Zenodo', doi: '10.5281/zenodo.21539926', tags: 'tuberculosis tb equity diversity clinical trials' },
+  { kind: 'paper', id: 'dossier', title: 'Comparative regulatory dossier: FDA, EMA and CDSCO', desc: 'A book-length comparison of how the three agencies approve new drugs.', where: 'Zenodo', doi: '10.5281/zenodo.21325007', tags: 'regulatory comparison india us eu approval' },
+
+  // Guides and books
+  { kind: 'guide', id: 'nano-guide', title: 'Nanomedicine Regulatory Guide', desc: 'Six regulators, a timeline, a 27-item checklist and the CMC dossier sections for nanomedicines, with an India focus.', where: 'Web app', url: 'https://nanomedicine-regulatory-guide.netlify.app', doi: '10.5281/zenodo.20405346', tags: 'nanomedicine nanoparticles cdsco cmc india' },
+  { kind: 'guide', id: 'nano-book', title: 'Nanomedicine regulation monograph', desc: 'A book on regulating nanomedicines, with the NREI and INRRI indices and an implementation framework for India.', where: 'Amazon Kindle', tags: 'nanomedicine book nrei inrri india' },
+
+  // Training apps (lifecycle order is set in PATH below)
+  { kind: 'app', id: 'dna', title: 'DNA to Protein Explorer', desc: 'Transcription and translation step by step; click a base to mutate it and see the effect classified.', where: 'Molecular biology', url: 'https://dna-to-protein-explorer.randomthingsonlineatsk.workers.dev', tags: 'bioinformatics mutation genetics' },
+  { kind: 'app', id: 'bat', title: 'Bioanalytical Toolkit', desc: 'Eight bench calculators: dilutions, molarity, LOD/LOQ, standard curves, precision and accuracy, Levey-Jennings charts.', where: 'Bioanalysis', url: 'https://macaly-sv024x4gw7dgp6q681bydphh-prod.macaly-app.com', tags: 'calculator lab qc' },
+  { kind: 'app', id: 'elisa', title: 'Virtual ELISA Lab', desc: 'Run a 96-well ELISA, fit a 4PL curve and diagnose faults like the hook effect.', where: 'Bioanalysis', url: 'https://macaly-j4uz4ttgyvgnfvu40ibsinyw-prod.macaly-app.com', tags: 'immunoassay 4pl lab' },
+  { kind: 'app', id: 'rpe', title: 'Global Regulatory Pathway Explorer', desc: '16 authorities and 12 product types, from preclinical to post-market, with a device and IVD classification wizard.', where: 'Regulatory', url: GH + 'regulatory-pathway-explorer/', tags: 'fda ema cdsco pmda device ivd mdr' },
+  { kind: 'app', id: 'cts', title: 'Clinical Trial Simulator', desc: 'Design a Phase I to III trial and live with the consequences; file the trial application first.', where: 'Clinical', url: GH + 'clinical-trial-simulator/', tags: 'ind ctis trial design' },
+  { kind: 'app', id: 'cdm', title: 'CDM Query & Edit-Check Console', desc: 'Clean a study database: edit checks, queries, reconciliation, database lock and a protocol twin for ICH M11.', where: 'Clinical data', url: GH + 'cdm-query-console/', tags: 'data management edc queries m11' },
+  { kind: 'app', id: 'sdtm', title: 'SDTM Mapping Trainer', desc: 'Map raw CRF data to CDISC SDTM, run conformance rules and trace any value back to its source.', where: 'Clinical data', url: GH + 'sdtm-mapping-trainer/', tags: 'cdisc sdtm define.xml traceability' },
+  { kind: 'app', id: 'ectd', title: 'eCTD Dossier Builder', desc: 'Compile a CTD dossier, manage sequences and validate it; includes a v4.0 migration lab.', where: 'Regulatory', url: GH + 'ectd-dossier-builder/', tags: 'ectd ctd submission v4.0' },
+  { kind: 'app', id: 'srr', title: 'Submission Readiness Review', desc: 'About 200 QC problems across regulatory, data, PV, GCP and post-approval work.', where: 'Regulatory', url: 'https://macaly-hjgyggc7g0j3t63td7jxzmcw-prod.macaly-app.com', tags: 'qc review dossier quiz' },
+  { kind: 'app', id: 'lab', title: 'Labelling Workbench', desc: 'Write and check USPI, SmPC and leaflet text, roll out a core data sheet and watch label drift across markets.', where: 'Regulatory', url: GH + 'labelling-workbench/', tags: 'labelling ccds smpc uspi pil' },
+  { kind: 'app', id: 'vc', title: 'Variations Classifier', desc: 'Classify post-approval changes for the US, EU, UK, India and more, with a divergence and reliance map.', where: 'Regulatory', url: GH + 'variations-classifier/', tags: 'variations supplements post-approval cmc' },
+  { kind: 'app', id: 'pvd', title: 'Pharmacovigilance Detective', desc: 'Assess fictional adverse event reports for seriousness, expectedness, causality and reporting clocks.', where: 'Safety', url: 'https://macaly-vk8n1uej2fxhdadix9p0glsv-prod.macaly-app.com', tags: 'pv safety icsr causality' },
+  { kind: 'app', id: 'outbreak', title: 'Outbreak Investigation Simulator', desc: '30 field-epidemiology cases: case definitions, epi curves, odds ratios and control measures.', where: 'Public health', url: 'https://macaly-fo2l3lkahf9yo6rzgejhuj59-prod.macaly-app.com', tags: 'epidemiology outbreak' },
+  { kind: 'app', id: 'viz', title: 'Visualization Lab', desc: 'Physics, chemistry and biology experiments you can animate with sliders.', where: 'Science', url: GH + 'visualization-lab/', tags: 'physics chemistry biology simulation' },
+
+  // Tools and open code
+  { kind: 'code', id: 'litintel', title: 'LitIntel', desc: 'Search, screen and extract evidence from the scientific literature, free to use.', where: 'Research tool', url: 'https://litintel.randomthingsonlineatsk.workers.dev', tags: 'literature review systematic' },
+  { kind: 'code', id: 'scholarly', title: 'ScholarlyWrite', desc: 'Grammar and style, similarity and AI-language checks for academic writing.', where: 'Research tool', url: 'https://scholarlywrite.randomthingsonlineatsk.workers.dev', tags: 'writing grammar academic' },
+  { kind: 'code', id: 'lexis', title: 'Lexis', desc: 'Compare keywords across two documents and scan CSV datasets, with a Python CLI.', where: 'Research tool', url: 'https://github.com/randomthingsonlineatsk-cloud/lexis-keyword-comparison', doi: '10.5281/zenodo.22804446', tags: 'keywords text comparison csv' },
+  { kind: 'code', id: 'diabetes', title: 'Diabetes prediction pipeline', desc: 'XGBoost with SHAP explanations.', where: 'Machine learning', doi: '10.5281/zenodo.20336854', tags: 'ml xgboost shap healthcare' },
+  { kind: 'code', id: 'arrhythmia', title: 'Heart rate and arrhythmia deep learning', desc: 'A dual-task TensorFlow/Keras pipeline.', where: 'Machine learning', doi: '10.5281/zenodo.20388876', tags: 'ml ecg deep learning' },
+  { kind: 'code', id: 'verse', title: 'Quranic verse recommendation system', desc: 'TF-IDF and Sentence Transformers.', where: 'Machine learning', doi: '10.5281/zenodo.20404414', tags: 'nlp recommendation' },
+];
+
+const PATH = [
+  ['Gene to protein', 'What the target is made of.', ['dna']],
+  ['Bench assays', 'Measure it reliably in the lab.', ['bat', 'elisa']],
+  ['Choose the pathway', 'Which route to approval, in which countries.', ['rpe']],
+  ['Run the trial', 'Get the trial approved, then design and run it.', ['cts']],
+  ['Clean the data', 'From CRF pages to a locked database.', ['cdm']],
+  ['Standardise the data', 'Raw data to CDISC SDTM, traceable.', ['sdtm']],
+  ['Build the dossier', 'Compile and check the submission.', ['ectd', 'srr']],
+  ['Write the label', 'Prescribing information, SmPC and leaflet.', ['lab']],
+  ['Change it after approval', 'Classify every variation.', ['vc']],
+  ['Watch its safety', 'Assess adverse event reports.', ['pvd']],
+];
+
+const KINDS = { all: 'All', paper: 'Papers', app: 'Training apps', guide: 'Guides & books', code: 'Tools & code' };
+const MARK = { paper: '', app: 'alt', guide: 'ring', code: 'alt' };
+const byId = Object.fromEntries(ITEMS.map((i) => [i.id, i]));
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const link = (i) => i.url || (i.doi ? 'https://doi.org/' + i.doi : null);
+
+document.getElementById('path').innerHTML = PATH.map(([stage, q, ids]) => `<li><div><div class="stage">${esc(stage)}</div><div class="q">${esc(q)}</div><div class="apps">${ids.map((id) => `<a href="${byId[id].url}" target="_blank" rel="noopener">${esc(byId[id].title)}</a>`).join('')}</div></div></li>`).join('');
+
+let kind = 'all';
+try { const k = localStorage.getItem('pm-kind'); if (k && KINDS[k]) kind = k; } catch (e) {}
+const q = document.getElementById('q');
+
+function render() {
+  const words = q.value.toLowerCase().split(/\s+/).filter(Boolean);
+  const hit = (i) => (kind === 'all' || i.kind === kind) && words.every((w) => `${i.title} ${i.desc} ${i.where} ${i.tags || ''} ${i.doi || ''}`.toLowerCase().includes(w));
+  const shown = ITEMS.filter(hit);
+  document.getElementById('chips').innerHTML = Object.entries(KINDS).map(([k, label]) => `<button class="chip" type="button" data-k="${k}" aria-pressed="${k === kind}">${label}<span class="n">${k === 'all' ? ITEMS.length : ITEMS.filter((i) => i.kind === k).length}</span></button>`).join('');
+  document.getElementById('count').textContent = `${shown.length} of ${ITEMS.length}`;
+  const groups = Object.keys(KINDS).filter((k) => k !== 'all').map((k) => [k, shown.filter((i) => i.kind === k)]).filter(([, l]) => l.length);
+  document.getElementById('list').innerHTML = groups.length ? groups.map(([k, l]) => `<div class="group"><h3 class="${MARK[k]}">${KINDS[k]}</h3>${l.map((i) => {
+    const u = link(i);
+    return `<article class="item"><div><div class="t">${u ? `<a href="${u}" target="_blank" rel="noopener">${esc(i.title)}</a>` : esc(i.title)}</div><div class="d">${esc(i.desc)}</div><div class="meta">${i.doi ? `<span>DOI <a href="https://doi.org/${i.doi}" target="_blank" rel="noopener">${i.doi}</a></span>` : ''}${i.url && !i.url.startsWith('https://papers.ssrn') ? `<span>${esc(i.url.replace(/^https:\/\//, '').replace(/\/$/, ''))}</span>` : ''}${!u ? '<span>Link coming soon</span>' : ''}</div></div><span class="badge">${esc(i.where)}</span></article>`;
+  }).join('')}</div>`).join('') : '<p class="empty">Nothing matches. Try a shorter word.</p>';
+}
+document.getElementById('chips').addEventListener('click', (e) => {
+  const b = e.target.closest('.chip'); if (!b) return;
+  kind = b.dataset.k; try { localStorage.setItem('pm-kind', kind); } catch (err) {}
+  render();
+});
+q.addEventListener('input', render);
+render();
+</script>
+
+</body>
+</html>
