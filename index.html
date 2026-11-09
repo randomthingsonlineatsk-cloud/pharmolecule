@@ -51,6 +51,8 @@ h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0 }
 .links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px }
 .links a { font-size: .9rem; text-decoration: none; padding: 5px 12px; border: 1px solid var(--line); border-radius: 999px; color: var(--ink) }
 .links a:hover { border-color: var(--teal); color: var(--teal-ink) }
+.links.pages { margin-top: 8px }
+.links.pages a { border-style: dashed; color: var(--teal-ink) }
 .links a.ig { background: var(--teal); border-color: var(--teal); color: var(--bg); font-weight: 600 }
 @media (max-width: 560px) { .who { grid-template-columns: 1fr; gap: 16px } .logo { width: 96px; height: 96px } }
 
@@ -119,13 +121,17 @@ footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--line);
         <a href="https://github.com/randomthingsonlineatsk-cloud" target="_blank" rel="noopener">GitHub</a>
         <a href="https://www.kaggle.com/shagufakhan" target="_blank" rel="noopener">Kaggle</a>
       </nav>
+      <nav class="links pages" aria-label="Pages">
+        <a href="https://randomthingsonlineatsk-cloud.github.io/pharmolecule/journey.html">Ostrevia lifecycle journey</a>
+        <a href="https://randomthingsonlineatsk-cloud.github.io/pharmolecule/passport.html">Regulatory Skills Passport</a>
+      </nav>
       <p class="mail">Contact <span id="mail">shagufasportfolioatsk@gmail.com</span> <button type="button" class="copy" id="copy">Copy</button></p>
     </div>
   </header>
 
   <section class="sec" aria-labelledby="life">
     <h2 id="life">One product, whole lifecycle <small>10 stages</small></h2>
-    <p class="lede">Follow one medicine from its gene to its safety reports. Each stage links to a free practice app; the data in every app is fictional.</p>
+    <p class="lede">Follow one medicine from its gene to its safety reports. Each stage links to a free practice app; the data in every app is fictional. For the guided version, where each app hands a real file to the next and the page checks it, take the <a href="https://randomthingsonlineatsk-cloud.github.io/pharmolecule/journey.html">Ostrevia lifecycle journey</a>, then collect your certificates in the <a href="https://randomthingsonlineatsk-cloud.github.io/pharmolecule/passport.html">Regulatory Skills Passport</a>.</p>
     <ol class="path" id="path"></ol>
   </section>
 

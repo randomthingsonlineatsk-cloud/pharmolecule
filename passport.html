@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Regulatory Skills Passport</title>
+<meta name="description" content="Check certificates from the eCTD Dossier Builder, Variations Classifier, Labelling Workbench, CDM Query Console and SDTM Mapping Trainer, and show them on one page.">
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="site.css">
+<style>
+.how { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-top: 22px; font-size: .94rem }
+.how div { border-top: 2px solid var(--teal); padding-top: 8px }
+.how b { display: block; font-family: var(--display) }
+.load { margin-top: 26px; display: grid; gap: 10px }
+.viewing { padding: 10px 14px; border-radius: 10px; background: var(--warn-soft); color: var(--warn); font-size: .92rem; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between }
+/* The passport itself: a document, so it gets the one framed surface on the page. */
+.doc { margin-top: 26px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); overflow: hidden }
+.doc .band { padding: 18px 20px; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 16px; align-items: center; border-bottom: 1px solid var(--line); background: var(--teal-soft) }
+.doc .band img { width: 56px; height: 56px; border-radius: 50% }
+.doc .band .who { font: 800 1.5rem var(--display); overflow-wrap: anywhere }
+.doc .band .code { text-align: right }
+.doc .band .code b { font: 500 1.05rem var(--mono); display: block }
+@media (max-width: 560px) { .doc .band { grid-template-columns: auto minmax(0, 1fr) } .doc .band .code { grid-column: 1 / -1; text-align: left } }
+.doc section { padding: 16px 20px; border-bottom: 1px solid var(--line) }
+.doc section:last-child { border-bottom: 0 }
+.doc h2 { font-size: 1.05rem; margin-bottom: 8px }
+.cert { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 14px; padding: 10px 0; border-top: 1px solid var(--line) }
+.cert:first-of-type { border-top: 0 }
+.cert .t { font-weight: 600 }
+.cert .m { font: .78rem var(--mono); color: var(--muted); display: flex; flex-wrap: wrap; gap: 2px 12px; overflow-wrap: anywhere }
+.cert details { grid-column: 1 / -1; font-size: .9rem }
+.cert summary { cursor: pointer; color: var(--teal-ink); font-size: .85rem }
+.cert .x { border: 0; background: none; color: var(--muted); cursor: pointer; font-size: .8rem; text-decoration: underline; padding: 0 }
+.missing { color: var(--muted); font-size: .92rem }
+.jrow { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 6px; font-size: .93rem; padding: 2px 0 }
+.jrow .s { font-weight: 700; color: var(--ok) } .jrow.no .s { color: var(--muted) }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px }
+.rejected { margin-top: 14px; padding: 12px 14px; border-radius: 10px; background: var(--bad-soft); color: var(--bad); font-size: .92rem }
+.rejected ul { margin: 6px 0 0; padding-left: 18px }
+.rejected.info { background: var(--warn-soft); color: var(--warn) }
+.note { font-size: .85rem; color: var(--muted); max-width: 70ch }
+@media print {
+  .top nav, .how, .load, .actions, .no-print, footer .no-print, .cert .x, .cert details summary { display: none !important }
+  .cert details { display: block } .cert details > *:not(summary) { display: block }
+  body { background: #fff; color: #000 } .doc { border-color: #999 }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <img src="logo.png" alt="">
+    <a class="brand" href="./">pharm<span>olecule</span></a>
+    <nav aria-label="Pages"><a href="./">Home</a><a href="journey.html">Lifecycle journey</a><a href="passport.html" aria-current="page">Skills Passport</a></nav>
+  </header>
+
+  <p class="eyebrow">Regulatory Skills Passport</p>
+  <h1>Every certificate, checked, on one page</h1>
+  <p class="lede">Five training apps give a certificate when their course is complete. Bring them together here: the page recomputes each certificate’s verification code from the scores behind it, so a changed name, score or date shows straight away.</p>
+  <div class="how">
+    <div><b>1. Earn a certificate</b>In an app’s Progress or Missions page, once every criterion is met.</div>
+    <div><b>2. Save its passport record</b>Use “Passport record (JSON)” next to the certificate download.</div>
+    <div><b>3. Drop the records here</b>Then download your passport file to send, or print the page.</div>
+  </div>
+
+  <div class="load">
+    <div id="viewing" class="viewing" hidden></div>
+    <label class="drop" id="drop"><input class="sr" type="file" id="file" multiple accept=".json,application/json"><span><strong>Drop passport records or a passport file here</strong> or choose them</span><span class="small">Files are read on this page and never uploaded.</span></label>
+    <div id="rejected" class="rejected" hidden></div>
+    <div id="notes" class="rejected info" hidden></div>
+  </div>
+
+  <article class="doc" id="doc" aria-live="polite"></article>
+  <div class="actions" id="actions"></div>
+  <p class="note" style="margin-top:16px">What “verified” means: the record has not been edited since the app made it, and its code matches its scores. The hashes are public and the apps run in the learner’s own browser, so this is a portfolio check, not proof of identity, and not an accreditation.</p>
+
+  <footer><span>Built by Khan Gulrez Shagufa Fazal Ahmed</span><span>Training only. Fictional products and data.</span></footer>
+</div>
+
+<script type="module">
+import { APPS, RECORD_KIND, BUNDLE_KIND, verifyRecord, passportCode, sameName, loadJourney, esc } from './verify.js';
+import { STEPS } from './journey.js';
+
+const KEY = 'pm-passport-records-v1';
+const load = () => { try { return JSON.parse(localStorage.getItem(KEY) || '[]') || []; } catch { return []; } };
+const save = (r) => { try { localStorage.setItem(KEY, JSON.stringify(r)); } catch { /* storage blocked */ } };
+
+let records = load();          // the learner's own records
+let viewing = null;            // a passport file someone sent: { name, records, journey, file }
+let rejected = [];
+let notes = [];
+
+const certKey = (r) => `${r.app}|${r.certificate}`;
+
+async function evaluate(list) {
+  const out = [];
+  for (const rec of list) out.push({ rec, v: await verifyRecord(rec) });
+  // One per app certificate: the latest issued that verifies.
+  const best = new Map();
+  for (const x of out) { const k = certKey(x.rec); const b = best.get(k); if (!b || (x.v.ok && !b.v.ok) || (x.v.ok === b.v.ok && x.rec.issued > b.rec.issued)) best.set(k, x); }
+  return [...best.values()];
+}
+
+function journeyRows(j) {
+  return STEPS.map((s) => ({ id: s.id, title: s.title, app: s.app, ok: !!j?.[s.id]?.ok, file: j?.[s.id]?.file ?? null, at: j?.[s.id]?.at ?? null }));
+}
+
+let current = null; // what is shown, for the download
+async function render() {
+  const src = viewing ? viewing.records : records;
+  const items = await evaluate(src);
+  const good = items.filter((x) => x.v.ok);
+  const holder = viewing?.name ?? good.find((x) => x.v.complete)?.rec.name ?? good[0]?.rec.name ?? '';
+  const mine = items.map((x) => ({ ...x, otherName: holder && !sameName(x.rec.name, holder) }));
+  const counted = mine.filter((x) => x.v.complete && !x.otherName);
+  const code = counted.length ? await passportCode(holder, counted.map((x) => x.rec.code)) : null;
+  const jr = journeyRows(viewing ? viewing.journey : loadJourney());
+  const jDone = jr.filter((r) => r.ok).length;
+  current = { holder, counted, code, jr };
+
+  const vbox = document.getElementById('viewing');
+  vbox.hidden = !viewing;
+  if (viewing) vbox.innerHTML = `<span>Viewing the passport file <b>${esc(viewing.file)}</b>. Every certificate in it was checked again just now.</span><button class="btn" type="button" id="close">Back to my passport</button>`;
+
+  const byApp = Object.entries(APPS).map(([id, a]) => ({ id, a, certs: mine.filter((x) => x.rec.app === id) }));
+  const today = new Date().toISOString().slice(0, 10);
+  document.getElementById('doc').innerHTML = `
+    <div class="band">
+      <img src="logo.png" alt="">
+      <div><div class="eyebrow">Regulatory Skills Passport</div><div class="who">${holder ? esc(holder) : '<span class="muted">No certificates yet</span>'}</div></div>
+      <div class="code"><span class="eyebrow">Passport code</span><b>${code ?? '—'}</b><span class="small muted">${counted.length} certificate${counted.length === 1 ? '' : 's'} · ${jDone} of ${jr.length} journey steps · ${today}</span></div>
+    </div>
+    <section aria-labelledby="c-h">
+      <h2 id="c-h">Certificates</h2>
+      ${byApp.map(({ id, a, certs }) => certs.length ? certs.map(({ rec, v, otherName }) => `
+        <div class="cert">
+          <div><div class="t">${esc(a.name)} · ${esc(rec.certificate)}</div>
+            <div class="m"><span>Code ${esc(rec.code)}</span><span>Issued ${esc(rec.issued)}</span><span>Learner ID ${esc(rec.userId)}</span>${rec.distinction ? '<span>With distinction</span>' : ''}${(rec.endorsements ?? []).length ? `<span>Endorsements: ${esc(rec.endorsements.join('; '))}</span>` : ''}</div></div>
+          <div>${!v.ok ? '<span class="pill bad">Not verified</span>' : otherName ? '<span class="pill warn">Other name</span>' : v.complete ? '<span class="pill ok">Verified</span>' : '<span class="pill warn">Not complete</span>'}</div>
+          <details><summary>What was checked</summary>
+            <ul class="checks">${v.checks.map((c) => `<li class="${c.ok ? '' : 'no'}">${esc(c.label)}</li>`).join('')}${(rec.criteria ?? []).map((c) => `<li class="${c.met ? '' : 'no'}">${esc(c.label)}</li>`).join('')}</ul>
+            ${otherName ? `<p class="small">This record is for ${esc(rec.name)}, not ${esc(holder)}, so it is not counted.</p>` : v.problem ? `<p class="small">${esc(v.problem)}</p>` : ''}
+            ${viewing ? '' : `<button class="x no-print" type="button" data-remove="${esc(certKey(rec))}">Remove from this passport</button>`}
+          </details>
+        </div>`).join('') : `<div class="cert"><div><div class="t">${esc(a.name)}</div><div class="missing">No certificate yet${a.certs > 1 ? ` (${a.certs} certificates to earn)` : ''}. <a href="${a.url}" target="_blank" rel="noopener">Open the app</a></div></div><div><span class="pill idle">Not earned</span></div></div>`).join('')}
+    </section>
+    <section aria-labelledby="j-h">
+      <h2 id="j-h">Ostrevia lifecycle journey: ${jDone} of ${jr.length} steps</h2>
+      ${jr.map((r) => `<div class="jrow${r.ok ? '' : ' no'}"><span class="s">${r.ok ? '✓' : '·'}</span><span>${esc(r.title)} <span class="muted small">(${esc(r.app)}${r.ok && r.file ? `, ${esc(r.file)}` : ''})</span></span></div>`).join('')}
+      <p class="small muted" style="margin:8px 0 0">${viewing ? 'Journey steps as recorded in the passport file; each was checked from the learner’s hand-off file in their browser.' : `Checked on the <a href="journey.html">journey page</a> from your hand-off files.`}</p>
+    </section>`;
+
+  const rej = document.getElementById('rejected');
+  rej.hidden = !rejected.length;
+  rej.innerHTML = rejected.length ? `<b>Not added</b><ul>${rejected.map((r) => `<li>${esc(r)}</li>`).join('')}</ul>` : '';
+  const nb = document.getElementById('notes');
+  nb.hidden = !notes.length;
+  nb.innerHTML = notes.length ? `<b>Added, not counted yet</b><ul>${notes.map((r) => `<li>${esc(r)}</li>`).join('')}</ul>` : '';
+
+  document.getElementById('actions').innerHTML = viewing ? '<button class="btn" type="button" id="print">Print</button>' :
+    `<button class="btn primary" type="button" id="dl" ${counted.length ? '' : 'disabled'}>Download passport file</button><button class="btn" type="button" id="print">Print</button>${records.length ? '<button class="btn" type="button" id="clear">Remove all records</button>' : ''}`;
+}
+
+async function addFiles(files) {
+  rejected = []; notes = [];
+  for (const f of files) {
+    let j;
+    try { j = JSON.parse(await f.text()); } catch { rejected.push(`${f.name}: not a JSON file.`); continue; }
+    if (j?.kind === BUNDLE_KIND) {
+      if (!Array.isArray(j.records)) { rejected.push(`${f.name}: the passport file is damaged.`); continue; }
+      viewing = { name: j.name, records: j.records, journey: Object.fromEntries((j.journey ?? []).filter((s) => s.ok).map((s) => [s.id, { ok: true, file: s.file, at: s.at }])), file: f.name };
+      continue;
+    }
+    if (j?.kind !== RECORD_KIND) { rejected.push(`${f.name}: not a passport record. In the app, use “Passport record (JSON)” next to the certificate.`); continue; }
+    const v = await verifyRecord(j);
+    if (!v.ok) { rejected.push(`${f.name}: ${v.problem}`); continue; }
+    viewing = null;
+    records = [...records.filter((r) => !(certKey(r) === certKey(j) && r.issued <= j.issued)), j];
+    if (!v.complete) notes.push(`${f.name}: the record is genuine, but not every criterion of the certificate is met yet. Finish the course, then save a new record.`);
+  }
+  save(records); render();
+}
+
+const file = document.getElementById('file');
+const drop = document.getElementById('drop');
+file.addEventListener('change', () => { if (file.files.length) addFiles([...file.files]); file.value = ''; });
+drop.addEventListener('dragover', (e) => { e.preventDefault(); drop.classList.add('over'); });
+drop.addEventListener('dragleave', () => drop.classList.remove('over'));
+drop.addEventListener('drop', (e) => { e.preventDefault(); drop.classList.remove('over'); if (e.dataTransfer.files.length) addFiles([...e.dataTransfer.files]); });
+
+document.addEventListener('click', (e) => {
+  const t = e.target;
+  if (t.id === 'close') { viewing = null; rejected = []; notes = []; render(); }
+  if (t.id === 'print') window.print();
+  if (t.dataset?.remove) { records = records.filter((r) => certKey(r) !== t.dataset.remove); save(records); render(); }
+  if (t.id === 'clear') { t.outerHTML = '<span class="small">Remove every record from this browser?</span><button class="btn" type="button" id="clear-yes">Remove</button><button class="btn" type="button" id="clear-no">Keep</button>'; }
+  if (t.id === 'clear-yes') { records = []; save(records); render(); }
+  if (t.id === 'clear-no') render();
+  if (t.id === 'dl' && current) {
+    const bundle = { kind: BUNDLE_KIND, schema: 1, createdAt: new Date().toISOString(), name: current.holder, code: current.code,
+      notice: 'Portfolio certificates from training apps. Not an accreditation. Open at https://randomthingsonlineatsk-cloud.github.io/pharmolecule/passport.html to check.',
+      records: current.counted.map((x) => x.rec), journey: current.jr };
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(bundle, null, 2)], { type: 'application/json' }));
+    a.download = `skills-passport-${current.holder.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-')}.json`;
+    document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+  }
+});
+render();
+</script>
+</body>
+</html>

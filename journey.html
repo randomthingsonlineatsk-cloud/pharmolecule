@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ostrevia Lifecycle Journey</title>
+<meta name="description" content="One Product, Whole Lifecycle: follow the fictional medicine Ostrevia from its IND to a safety label update across five training apps, passing the real hand-off files between them.">
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="site.css">
+<style>
+.facts { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 16px; font: .8rem var(--mono); color: var(--muted) }
+.facts b { color: var(--ink); font-weight: 500 }
+.meter { margin-top: 22px; display: grid; gap: 6px }
+.meter .bar { height: 8px; border-radius: 999px; background: var(--teal-soft); overflow: hidden }
+.meter .bar i { display: block; height: 100%; background: var(--teal); width: 0; transition: width .4s }
+.steps { list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 0; counter-reset: s }
+.step { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 16px; position: relative; padding-bottom: 30px }
+.step::before { counter-increment: s; content: counter(s); width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; font: 500 .85rem var(--mono); background: var(--bg); color: var(--teal-ink); border: 2px solid var(--teal); z-index: 1 }
+.step.done::before { content: "✓"; background: var(--teal); color: var(--bg) }
+.step:not(:last-child)::after { content: ""; position: absolute; left: 15px; top: 34px; bottom: 0; border-left: 2px dotted var(--teal) }
+.step .head { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline }
+.step h2 { font-size: 1.25rem }
+.step .app { font-size: .92rem }
+.step p.story { margin: 6px 0 0; max-width: 66ch }
+.step ol { margin: 8px 0 0; padding-left: 20px; font-size: .95rem; display: grid; gap: 2px }
+.card { margin-top: 12px; border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; background: var(--surface); display: grid; gap: 10px }
+.card .row { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; justify-content: space-between }
+.card .drop { padding: 14px }
+.result ul { margin: 0; padding-left: 18px; font-size: .92rem }
+.result .prob li { color: var(--bad) }
+.end { margin-top: 8px; border: 2px solid var(--teal); border-radius: 14px; padding: 18px; display: grid; gap: 8px }
+.confirm { display: inline-flex; gap: 8px; align-items: center; flex-wrap: wrap }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <img src="logo.png" alt="">
+    <a class="brand" href="./">pharm<span>olecule</span></a>
+    <nav aria-label="Pages"><a href="./">Home</a><a href="journey.html" aria-current="page">Lifecycle journey</a><a href="passport.html">Skills Passport</a></nav>
+  </header>
+
+  <p class="eyebrow">One product, whole lifecycle</p>
+  <h1>Ostrevia, from IND to label update</h1>
+  <p class="lede">Follow one medicine through seven pieces of real regulatory and clinical data work, in five free training apps. Each app hands a file to the next, the way regulatory, data, labelling and publishing teams pass work along. Drop each file here and the page checks it.</p>
+  <div class="facts"><span><b>Ostrevia</b> (lumiravostat) 10 mg and 25 mg film-coated tablets</span><span>Chronic hand eczema</span><span>Halcyon Ridge Pharmaceuticals</span><span>All fictional</span></div>
+  <div class="meter" aria-live="polite"><div class="small"><b id="count">0</b> of <span id="total">7</span> steps checked</div><div class="bar"><i id="fill"></i></div></div>
+
+  <ol class="steps" id="steps"></ol>
+
+  <section class="end" id="end" aria-labelledby="end-h">
+    <h2 id="end-h">Then: your Skills Passport</h2>
+    <p class="small" style="margin:0">Each app gives a certificate when its course is complete. The <a href="passport.html">Regulatory Skills Passport</a> checks the certificates from all five apps and shows them on one page, with the steps of this journey you have checked.</p>
+  </section>
+
+  <p class="small muted" style="margin-top:24px">Your progress stays in this browser. The files are read on this page and are not uploaded anywhere. <span class="confirm" id="reset-wrap"><button class="btn" type="button" id="reset">Start again</button></span></p>
+
+  <footer><span>Built by Khan Gulrez Shagufa Fazal Ahmed</span><span>Training only. Fictional product, company and data.</span></footer>
+</div>
+
+<script type="module">
+import { STEPS } from './journey.js';
+import { readHandoffFile, loadJourney, saveJourney, esc } from './verify.js';
+
+let J = loadJourney();
+const list = document.getElementById('steps');
+document.getElementById('total').textContent = STEPS.length;
+
+function render() {
+  list.innerHTML = STEPS.map((s, i) => {
+    const r = J[s.id];
+    const pill = !r ? '<span class="pill idle">Not checked</span>' : r.ok ? '<span class="pill ok">Checked</span>' : '<span class="pill bad">Needs work</span>';
+    return `<li class="step${r?.ok ? ' done' : ''}" id="step-${s.id}">
+      <div>
+        <div class="eyebrow">${esc(s.phase)}</div>
+        <div class="head"><h2>${esc(s.title)}</h2><a class="app" href="${s.url}" target="_blank" rel="noopener">${esc(s.app)} ↗</a></div>
+        <p class="story">${esc(s.story)}</p>
+        <ol>${s.todo.map((t) => `<li>${esc(t)}</li>`).join('')}</ol>
+        <div class="card">
+          <div class="row"><span class="small"><b>Hand-off:</b> ${esc(s.file)}</span>${pill}</div>
+          <label class="drop" data-step="${s.id}"><input class="sr" type="file" accept=".json,.zip,application/json,application/zip" data-step="${s.id}"><span><strong>Drop the file here</strong> or choose it</span>${r?.file ? `<span class="small mono">Last checked: ${esc(r.file)} · ${esc(r.at?.slice(0, 16).replace('T', ' '))} UTC</span>` : ''}</label>
+          ${r ? `<div class="result">${r.problems.length ? `<ul class="prob">${r.problems.map((p) => `<li>${esc(p)}</li>`).join('')}</ul>` : ''}${r.found.length ? `<ul>${r.found.filter(Boolean).map((f) => `<li>${esc(f)}</li>`).join('')}</ul>` : ''}</div>` : ''}
+        </div>
+      </div>
+    </li>`;
+  }).join('');
+  const n = STEPS.filter((s) => J[s.id]?.ok).length;
+  document.getElementById('count').textContent = n;
+  document.getElementById('fill').style.width = `${(100 * n) / STEPS.length}%`;
+}
+
+async function check(stepId, file) {
+  const s = STEPS.find((x) => x.id === stepId);
+  let r;
+  try { const { json } = await readHandoffFile(file); r = s.check(json); }
+  catch (e) { r = { ok: false, found: [], problems: [e.message] }; }
+  J[stepId] = { ...r, file: file.name, at: new Date().toISOString() };
+  saveJourney(J); render();
+  document.getElementById(`step-${stepId}`)?.querySelector('.drop')?.focus?.();
+}
+
+list.addEventListener('change', (e) => { const f = e.target.files?.[0]; if (f) check(e.target.dataset.step, f); });
+list.addEventListener('dragover', (e) => { const d = e.target.closest('.drop'); if (d) { e.preventDefault(); d.classList.add('over'); } });
+list.addEventListener('dragleave', (e) => e.target.closest('.drop')?.classList.remove('over'));
+list.addEventListener('drop', (e) => { const d = e.target.closest('.drop'); if (!d) return; e.preventDefault(); d.classList.remove('over'); const f = e.dataTransfer.files?.[0]; if (f) check(d.dataset.step, f); });
+
+const wrap = document.getElementById('reset-wrap');
+wrap.addEventListener('click', (e) => {
+  if (e.target.id === 'reset') wrap.innerHTML = '<span>Clear every checked step?</span><button class="btn" type="button" id="yes">Clear</button><button class="btn" type="button" id="no">Keep</button>';
+  if (e.target.id === 'yes') { J = {}; saveJourney(J); render(); }
+  if (e.target.id === 'yes' || e.target.id === 'no') wrap.innerHTML = '<button class="btn" type="button" id="reset">Start again</button>';
+});
+render();
+</script>
+</body>
+</html>

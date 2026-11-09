@@ -1,0 +1,55 @@
+/* Shared look of the pharmolecule pages (the Journey and the Skills Passport). The home page
+   carries the same tokens inline so it also works as a single file. */
+:root {
+  --bg: #fbf6f0; --surface: #ffffff; --ink: #1d2a30; --muted: #5d6b70; --line: #e6dccf;
+  --teal: #3f8f90; --teal-ink: #2c6f70; --teal-soft: #e3f0ee; --dot: #1d2a30;
+  --ok: #2f7a4a; --ok-soft: #e4f2e8; --warn: #9a6512; --warn-soft: #fbefd9; --bad: #a33a2c; --bad-soft: #f8e3df;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #121b1e; --surface: #182428; --ink: #ecf1ef; --muted: #9fb0b1; --line: #2a3a3e;
+  --teal: #5fb5b4; --teal-ink: #7fcac8; --teal-soft: #1b3233; --dot: #ecf1ef;
+  --ok: #7cc995; --ok-soft: #1b3324; --warn: #e3b065; --warn-soft: #3a2d17; --bad: #f09484; --bad-soft: #3b211d; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #121b1e; --surface: #182428; --ink: #ecf1ef; --muted: #9fb0b1; --line: #2a3a3e;
+  --teal: #5fb5b4; --teal-ink: #7fcac8; --teal-soft: #1b3233; --dot: #ecf1ef;
+  --ok: #7cc995; --ok-soft: #1b3324; --warn: #e3b065; --warn-soft: #3a2d17; --bad: #f09484; --bad-soft: #3b211d; color-scheme: dark }
+
+* { box-sizing: border-box }
+[hidden] { display: none !important }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.55 var(--body) }
+.wrap { max-width: 900px; margin: 0 auto; padding-block: 28px 56px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)) }
+a { color: var(--teal-ink); text-underline-offset: 3px }
+a:focus-visible, button:focus-visible, input:focus-visible, label:focus-within { outline: 2px solid var(--teal); outline-offset: 2px; border-radius: 4px }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0 }
+h1 { font-size: clamp(1.9rem, 5vw, 2.7rem); font-weight: 800; letter-spacing: -.02em; line-height: 1.05 }
+h2 { font-size: 1.35rem; font-weight: 700 }
+.lede { color: var(--muted); max-width: 64ch; margin: 10px 0 0 }
+.top { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 28px }
+.top img { width: 40px; height: 40px; border-radius: 50%; box-shadow: 0 0 0 1px var(--line) }
+.top .brand { font: 800 1.2rem var(--display); color: var(--ink); text-decoration: none }
+.top .brand span { color: var(--teal) }
+.top nav { margin-left: auto; display: flex; gap: 6px; flex-wrap: wrap }
+.top nav a { font-size: .9rem; text-decoration: none; padding: 4px 11px; border-radius: 999px; border: 1px solid var(--line); color: var(--ink) }
+.top nav a[aria-current="page"] { background: var(--ink); color: var(--bg); border-color: var(--ink) }
+.eyebrow { font: 500 .74rem var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--teal-ink) }
+.btn { font: 600 .9rem var(--body); padding: 7px 14px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--ink); cursor: pointer }
+.btn.primary { background: var(--teal); border-color: var(--teal); color: var(--bg) }
+.btn:disabled { opacity: .5; cursor: not-allowed }
+.pill { font: 500 .72rem var(--mono); letter-spacing: .04em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; white-space: nowrap }
+.pill.ok { background: var(--ok-soft); color: var(--ok) } .pill.warn { background: var(--warn-soft); color: var(--warn) } .pill.bad { background: var(--bad-soft); color: var(--bad) } .pill.idle { background: var(--teal-soft); color: var(--teal-ink) }
+.drop { display: grid; place-items: center; text-align: center; gap: 6px; padding: 22px 16px; border: 2px dashed var(--line); border-radius: 12px; color: var(--muted); cursor: pointer }
+.drop.over { border-color: var(--teal); background: var(--teal-soft) }
+.drop strong { color: var(--ink) }
+.mono { font-family: var(--mono); font-size: .82rem; overflow-wrap: anywhere }
+.small { font-size: .9rem } .muted { color: var(--muted) }
+ul.checks { list-style: none; padding: 0; margin: 6px 0 0; display: grid; gap: 3px; font-size: .92rem }
+ul.checks li { display: grid; grid-template-columns: 18px 1fr; gap: 6px }
+ul.checks li::before { content: "✓"; color: var(--ok); font-weight: 700 }
+ul.checks li.no::before { content: "✗"; color: var(--bad) }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0) }
+footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--line); font-size: .88rem; color: var(--muted); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px }
