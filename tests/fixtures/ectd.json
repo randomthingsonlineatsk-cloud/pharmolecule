@@ -1,0 +1,27 @@
+{
+  "kind": "pharmolecule/passport-record",
+  "schema": 1,
+  "app": "ectd-dossier-builder",
+  "appName": "eCTD Dossier Builder",
+  "certificate": "Completion certificate",
+  "appUrl": "https://randomthingsonlineatsk-cloud.github.io/ectd-dossier-builder/",
+  "name": "Asha Rao",
+  "userId": "u-123",
+  "issued": "2026-11-09",
+  "basis": "{\"name\":\"Asha Rao\",\"userId\":\"u-123\",\"date\":\"2026-11-09\",\"missions\":[[\"m1\",92],[\"m2\",81]],\"exam\":88}",
+  "code": "425B-E40F-C513",
+  "criteria": [
+    {
+      "label": "Every mission passed",
+      "met": true
+    },
+    {
+      "label": "Final exam 80% or more",
+      "met": true
+    }
+  ],
+  "distinction": false,
+  "alg": "sha256",
+  "notice": "Portfolio certificate from a training app. Not an accreditation.",
+  "seal": "cbb99cbe6b0898983ab606b2d1be8173821ed0f03d55e780183e7cd16840bf7d"
+}

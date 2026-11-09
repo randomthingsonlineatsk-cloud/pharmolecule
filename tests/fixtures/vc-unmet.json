@@ -1,0 +1,35 @@
+{
+  "kind": "pharmolecule/passport-record",
+  "schema": 1,
+  "app": "variations-classifier",
+  "appName": "Variations Classifier",
+  "certificate": "Completion certificate",
+  "appUrl": "https://randomthingsonlineatsk-cloud.github.io/variations-classifier/",
+  "name": "Asha Rao",
+  "userId": "u-123",
+  "issued": "2026-11-09",
+  "basis": "{\"app\":\"variations-classifier\",\"name\":\"Asha Rao\",\"userId\":\"u-123\",\"date\":\"2026-11-09\",\"missions\":[[1,90],[2,90],[3,90],[4,90],[5,90],[6,90],[7,90],[8,90],[9,90],[10,90],[11,90],[12,90],[13,90],[14,90],[15,90],[16,90],[17,90],[18,90],[19,90],[20,90],[21,90],[22,90],[23,90],[24,90],[25,90],[26,90],[27,90],[28,90]],\"quiz\":null}",
+  "code": "VC-EE31-AE89-320D",
+  "criteria": [
+    {
+      "label": "Every lesson check passed (75% or more): 0 of 17",
+      "met": false
+    },
+    {
+      "label": "Every mission scored 70 or more: 28 of 28",
+      "met": true
+    },
+    {
+      "label": "A mixed quiz round of 10 or more questions scored 80% or more: 0 of 1",
+      "met": false
+    },
+    {
+      "label": "Classification drills passed (70% or more) in 4 regions: 0 of 4",
+      "met": false
+    }
+  ],
+  "distinction": false,
+  "alg": "sha256",
+  "notice": "Portfolio certificate from a training app. Not an accreditation.",
+  "seal": "d08e0e1df7502d3a8e045350491043d8c0b234a9b4f8196d87309cbf5159dcca"
+}

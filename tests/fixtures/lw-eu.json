@@ -1,0 +1,31 @@
+{
+  "kind": "pharmolecule/passport-record",
+  "schema": 1,
+  "app": "labelling-workbench",
+  "appName": "Labelling Workbench",
+  "certificate": "EU product information certificate",
+  "appUrl": "https://randomthingsonlineatsk-cloud.github.io/labelling-workbench/",
+  "name": "Asha Rao",
+  "userId": "u-123",
+  "issued": "2026-11-09",
+  "basis": "{\"app\":\"labelling-workbench\",\"region\":\"eu\",\"name\":\"Asha Rao\",\"userId\":\"u-123\",\"date\":\"2026-11-09\",\"lessons\":[[30,90]],\"quiz\":85,\"drills\":[[\"eu-cap\",100]]}",
+  "code": "LW-340D-B9D7-E786",
+  "criteria": [
+    {
+      "label": "Lessons: 1 of 1",
+      "met": true
+    },
+    {
+      "label": "Quiz: 1 of 1",
+      "met": true
+    },
+    {
+      "label": "Capstone: 1 of 1",
+      "met": true
+    }
+  ],
+  "distinction": false,
+  "alg": "sha256",
+  "notice": "Portfolio certificate from a training app. Not an accreditation.",
+  "seal": "7f1e9768a24b102648a9e6c14bdde44858ade38da7b674e4f69936cbb65643e7"
+}

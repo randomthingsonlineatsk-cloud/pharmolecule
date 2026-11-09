@@ -1,0 +1,30 @@
+{
+  "kind": "pharmolecule/passport-record",
+  "schema": 1,
+  "app": "sdtm-mapping-trainer",
+  "appName": "SDTM Mapping Trainer",
+  "certificate": "Certificate of completion",
+  "appUrl": "x",
+  "name": "Asha Rao",
+  "userId": "u-123",
+  "issued": "2026-11-09",
+  "basis": "asha rao|S01:90:standard,S22:85:expert|u-123",
+  "code": "SDTM-EC738-16858",
+  "criteria": [
+    {
+      "label": "twelve missions",
+      "met": true
+    },
+    {
+      "label": "capstone",
+      "met": true
+    }
+  ],
+  "distinction": false,
+  "endorsements": [
+    "Nonclinical data (SEND)"
+  ],
+  "alg": "cyrb53",
+  "notice": "Portfolio certificate from a training app. Not an accreditation.",
+  "seal": "001b97ae2290f1"
+}

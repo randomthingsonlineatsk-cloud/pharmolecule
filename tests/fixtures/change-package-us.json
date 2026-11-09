@@ -1,0 +1,126 @@
+{
+  "kind": "variations-classifier/change-package",
+  "schema": 1,
+  "createdAt": "2026-11-09T15:36:41.526Z",
+  "notice": "Training only. Fictional product and company; not suitable for a real submission.",
+  "app": {
+    "name": "Variations Classifier",
+    "author": "Khan Gulrez Shagufa Fazal Ahmed"
+  },
+  "userId": null,
+  "classId": null,
+  "caseId": "c-d9fdde372f06",
+  "product": {
+    "id": "nce-tablet",
+    "ectdProductId": "nce-tablet",
+    "brandName": "Ostrevia",
+    "inn": "lumiravostat",
+    "appType": "nda",
+    "applicationNumber": "999101",
+    "holder": "Halcyon Ridge Pharmaceuticals, Inc.",
+    "in": null,
+    "eu": null,
+    "ca": null,
+    "uk": null,
+    "ch": null,
+    "jp": null
+  },
+  "region": "US",
+  "pack": {
+    "id": "us",
+    "edition": "2026.1"
+  },
+  "submission": {
+    "category": "AR",
+    "categoryLabel": "Annual report",
+    "kind": "cmc",
+    "ectd": {
+      "submissionType": "annual-report",
+      "subType": "report",
+      "submissionMode": "single"
+    },
+    "mode": "single",
+    "alsoProducts": [],
+    "description": "Tighten an acceptance criterion",
+    "implementation": {
+      "badge": "Do and tell",
+      "rule": "Make the change, then describe it in the next annual report, due within 60 days of the anniversary of approval."
+    },
+    "submitDate": "2026-11-02",
+    "earliestUse": "2026-11-02",
+    "related": false
+  },
+  "changes": [
+    {
+      "id": "ch-ae2dcbfe2c5c",
+      "changeId": "spec-tighten",
+      "title": "Tighten an acceptance criterion",
+      "note": "",
+      "category": "AR",
+      "categoryLabel": "Annual report",
+      "entry": {
+        "src": "g04",
+        "source": "Guidance: Changes to an Approved NDA or ANDA",
+        "at": "VIII.D.3"
+      },
+      "why": "Tightening of acceptance criteria is a minor change."
+    }
+  ],
+  "module1": [
+    {
+      "code": "1.1",
+      "label": "Form FDA 2252, transmittal of periodic reports"
+    },
+    {
+      "code": "1.2",
+      "label": "Cover letter for the annual report"
+    },
+    {
+      "code": "1.13.5",
+      "label": "Summary of manufacturing changes (CMC changes)"
+    }
+  ],
+  "ctd": [
+    {
+      "code": "1.1",
+      "label": "Form FDA 2252, transmittal of periodic reports",
+      "operation": "new",
+      "why": [
+        "Regional Module 1"
+      ]
+    },
+    {
+      "code": "1.2",
+      "label": "Cover letter for the annual report",
+      "operation": "new",
+      "why": [
+        "Regional Module 1"
+      ]
+    },
+    {
+      "code": "1.13.5",
+      "label": "Summary of manufacturing changes (CMC changes)",
+      "operation": "new",
+      "why": [
+        "Regional Module 1"
+      ]
+    },
+    {
+      "code": "3.2.P.5.1",
+      "label": "Drug product specification",
+      "operation": "replace",
+      "why": [
+        "Tighten an acceptance criterion"
+      ]
+    },
+    {
+      "code": "3.2.P.5.6",
+      "label": "Justification of the drug product specification",
+      "operation": "replace",
+      "why": [
+        "Tighten an acceptance criterion"
+      ]
+    }
+  ],
+  "coverLetter": "Halcyon Ridge Pharmaceuticals, Inc.\n400 Larkspur Way, Suite 12, Fictionville, NJ 08000, USA\n\n2026-11-02\n\nFood and Drug Administration (training letter; not for submission)\n\nRe: NDA 999101, Ostrevia (lumiravostat) - Annual report: manufacturing and labeling changes\n\nHalcyon Ridge Pharmaceuticals, Inc. reports the following changes, made since the last annual report, under 21 CFR 314.70(d):\n\n1. Tighten an acceptance criterion\n   Category: Annual report (Guidance: Changes to an Approved NDA or ANDA, VIII.D.3).\n\n\nContact: Dana Okafor, Director, Regulatory Affairs\n\nSincerely,\nDana Okafor\n\nTraining material. Fictional company and product."
+}
