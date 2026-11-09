@@ -96,6 +96,9 @@ h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0 }
 .empty { color: var(--muted); padding: 20px 0 }
 @media (max-width: 560px) { .item { grid-template-columns: 1fr } .badge { justify-self: start } }
 
+.mail { margin: 14px 0 0; font-size: .92rem; color: var(--muted); display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px }
+#mail { font-family: var(--mono); font-size: .85rem; color: var(--ink); user-select: all; overflow-wrap: anywhere }
+.copy { font: 600 .78rem var(--body); padding: 3px 10px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--teal-ink); cursor: pointer }
 footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--line); font-size: .88rem; color: var(--muted); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px }
 @media (prefers-reduced-motion: no-preference) { .logo { transition: transform .4s } .logo:hover { transform: rotate(-12deg) } }
 </style>
@@ -116,6 +119,7 @@ footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--line);
         <a href="https://github.com/randomthingsonlineatsk-cloud" target="_blank" rel="noopener">GitHub</a>
         <a href="https://www.kaggle.com/shagufakhan" target="_blank" rel="noopener">Kaggle</a>
       </nav>
+      <p class="mail">Contact <span id="mail">shagufasportfolioatsk@gmail.com</span> <button type="button" class="copy" id="copy">Copy</button></p>
     </div>
   </header>
 
@@ -226,6 +230,12 @@ document.getElementById('chips').addEventListener('click', (e) => {
 });
 q.addEventListener('input', render);
 render();
+document.getElementById('copy').addEventListener('click', async (e) => {
+  const t = document.getElementById('mail').textContent;
+  try { await navigator.clipboard.writeText(t); e.target.textContent = 'Copied'; }
+  catch (err) { const r = document.createRange(); r.selectNodeContents(document.getElementById('mail')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); e.target.textContent = 'Selected: press Ctrl+C'; }
+  setTimeout(() => { e.target.textContent = 'Copy'; }, 2500);
+});
 </script>
 
 </body>
