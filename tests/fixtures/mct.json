@@ -1,0 +1,39 @@
+{
+  "kind": "pharmolecule/passport-record",
+  "schema": 1,
+  "app": "medical-coding-trainer",
+  "appName": "Medical Coding Trainer",
+  "certificate": "Medical coding",
+  "appUrl": "https://randomthingsonlineatsk-cloud.github.io/medical-coding-trainer/",
+  "name": "Asha Verma",
+  "userId": "L-test0002",
+  "issued": "2026-11-10",
+  "basis": "asha verma|M1:84:expert,M2:87:expert,M3:90:expert,M4:93:standard,M5:96:standard|L-test0002",
+  "code": "MCT-4F707-7EA95",
+  "criteria": [
+    {
+      "label": "M1 Code the adverse events and medical history of HLV-204-201: passed (80% or more)",
+      "met": true
+    },
+    {
+      "label": "M2 Code the concomitant medications of three studies: passed (80% or more)",
+      "met": true
+    },
+    {
+      "label": "M3 Audit the synonym list: passed (80% or more)",
+      "met": true
+    },
+    {
+      "label": "M4 Upgrade the dictionaries mid-study: passed (80% or more)",
+      "met": true
+    },
+    {
+      "label": "M5 Code three studies at scale: passed (80% or more)",
+      "met": true
+    }
+  ],
+  "distinction": true,
+  "alg": "cyrb53",
+  "notice": "Portfolio certificate from a training app. Not an accreditation.",
+  "seal": "00487a4c0f7de0"
+}
