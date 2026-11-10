@@ -21,7 +21,7 @@ for (const [id, f, want] of journey) {
   assert.equal(r.ok, want, `${id} ${f}: ${r.problems.join(' | ')}`); n++;
 }
 
-for (const [f, complete] of [['ectd.json', true], ['vc-unmet.json', false], ['lw-eu.json', true], ['cdm.json', true], ['sdtm.json', true]]) {
+for (const [f, complete] of [['ectd.json', true], ['vc-unmet.json', false], ['lw-eu.json', true], ['cdm.json', true], ['sdtm.json', true], ['edc.json', true]]) {
   const r = json(f);
   const v = await verifyRecord(r);
   assert.equal(v.ok, true, f); assert.equal(v.complete, complete, f);
