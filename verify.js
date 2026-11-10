@@ -14,6 +14,7 @@ export const APPS = {
   'cdm-query-console': { name: 'CDM Query & Edit-Check Console', url: 'https://randomthingsonlineatsk-cloud.github.io/cdm-query-console/', alg: 'cyrb53', prefix: 'CDM-', certs: 1 },
   'sdtm-mapping-trainer': { name: 'SDTM Mapping Trainer', url: 'https://randomthingsonlineatsk-cloud.github.io/sdtm-mapping-trainer/', alg: 'cyrb53', prefix: 'SDTM-', certs: 1 },
   'edc-study-build-lab': { name: 'EDC Study Build Lab', url: 'https://randomthingsonlineatsk-cloud.github.io/edc-study-build-lab/', alg: 'cyrb53', prefix: 'EDC-', certs: 1 },
+  'medical-coding-trainer': { name: 'Medical Coding Trainer', url: 'https://randomthingsonlineatsk-cloud.github.io/medical-coding-trainer/', alg: 'cyrb53', prefix: 'MCT-', certs: 1 },
 };
 
 export async function sha256(str) {
