@@ -82,8 +82,8 @@ export async function passportCode(name, codes) {
 export async function readHandoffFile(file) {
   const bytes = new Uint8Array(await file.arrayBuffer());
   if (bytes[0] === 0x50 && bytes[1] === 0x4b) {
-    const text = await readZipEntry(bytes, 'handoff.json');
-    if (text == null) throw new Error('This zip has no handoff.json.');
+    const text = (await readZipEntry(bytes, 'handoff.json')) ?? (await readZipEntry(bytes, 'analysis.json'));
+    if (text == null) throw new Error('This zip has no handoff.json or analysis.json.');
     return { json: JSON.parse(text), zip: true };
   }
   try { return { json: JSON.parse(new TextDecoder().decode(bytes)), zip: false }; } catch { throw new Error('This file is not JSON or a zip.'); }

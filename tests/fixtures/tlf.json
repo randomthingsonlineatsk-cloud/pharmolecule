@@ -8,32 +8,52 @@
   "name": "Asha Verma",
   "userId": "L-test0003",
   "issued": "2026-11-14",
-  "basis": "asha verma|M1:100:expert,M2:100:expert,M3:100:expert,M4:100:standard,M5:100:standard|L-test0003",
-  "code": "TLF-F6A7E-71AD2",
+  "basis": "asha verma|M1:84:expert,M2:86:expert,M3:88:expert,M4:90:standard,M5:92:standard,M6:94:standard,M7:96:expert,M8:98:standard|L-test0003",
+  "code": "TLF-9F177-B991A",
   "criteria": [
     {
-      "label": "M1 Build ADSL passed at 80% or more",
+      "label": "The 5 core missions passed at 80% or more: 5 passed",
       "met": true
     },
     {
-      "label": "M2 Safety: ADAE, the adverse event table and the SAE listing passed at 80% or more",
+      "label": "At least 3 workflow missions passed at 80% or more: 3 passed",
       "met": true
     },
     {
-      "label": "M3 Efficacy: ADLB, the ANCOVA and the figure passed at 80% or more",
+      "label": "M1 Build ADSL: 84% (expert)",
       "met": true
     },
     {
-      "label": "M4 Independent QC of the adverse event table passed at 80% or more",
+      "label": "M2 Safety: ADAE, the adverse event table and the SAE listing: 86% (expert)",
       "met": true
     },
     {
-      "label": "M5 Demographics and analysis results metadata passed at 80% or more",
+      "label": "M3 Efficacy: ADLB, the ANCOVA and the figure: 88% (expert)",
+      "met": true
+    },
+    {
+      "label": "M4 Independent QC of the adverse event table: 90% (standard)",
+      "met": true
+    },
+    {
+      "label": "M5 Demographics and analysis results metadata: 92% (standard)",
+      "met": true
+    },
+    {
+      "label": "M6 Answer the agency's information requests: 94% (standard)",
+      "met": true
+    },
+    {
+      "label": "M7 Validate a program written by an AI assistant: 96% (expert)",
+      "met": true
+    },
+    {
+      "label": "M8 Review a colleague's program without running it: 98% (standard)",
       "met": true
     }
   ],
-  "distinction": true,
+  "distinction": false,
   "alg": "cyrb53",
   "notice": "Portfolio certificate from a training app. Not an accreditation.",
-  "seal": "07560a46898f62"
+  "seal": "0f9a3ec49ca04d"
 }
