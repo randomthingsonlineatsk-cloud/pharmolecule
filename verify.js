@@ -15,6 +15,7 @@ export const APPS = {
   'sdtm-mapping-trainer': { name: 'SDTM Mapping Trainer', url: 'https://randomthingsonlineatsk-cloud.github.io/sdtm-mapping-trainer/', alg: 'cyrb53', prefix: 'SDTM-', certs: 1 },
   'edc-study-build-lab': { name: 'EDC Study Build Lab', url: 'https://randomthingsonlineatsk-cloud.github.io/edc-study-build-lab/', alg: 'cyrb53', prefix: 'EDC-', certs: 1 },
   'medical-coding-trainer': { name: 'Medical Coding Trainer', url: 'https://randomthingsonlineatsk-cloud.github.io/medical-coding-trainer/', alg: 'cyrb53', prefix: 'MCT-', certs: 1 },
+  'tlf-programming-lab': { name: 'TLF Programming Lab', url: 'https://randomthingsonlineatsk-cloud.github.io/tlf-programming-lab/', alg: 'cyrb53', prefix: 'TLF-', certs: 1 },
 };
 
 export async function sha256(str) {
