@@ -78,6 +78,29 @@ export const STEPS = [
     },
   },
   {
+    id: 'tlf', phase: 'During the trial', title: 'Program the analysis and the study report tables', app: 'TLF Programming Lab', url: GH + 'tlf-programming-lab/',
+    story: 'The statisticians take the SDTM package on to the analysis: ADaM datasets for VERDANT-1, the primary endpoint (IGA-CHE treatment success at Week 16), HECSI-75, the safety tables and listing, each output checked by an independent second program. With define.xml and the reviewer’s guide they go into Module 5 next to the SDTM.',
+    todo: ['On the Home page, upload the SDTM hand-off zip from step 3: it opens an HRP-301 project on your own data.', 'Program every analysis dataset, table, listing and figure until each matches the independent reference, with program headers and a clean log (Runs & tracker: run all programs).', 'On the Submission page, run the conformance checks, explain what remains, and download the analysis package (.zip).'],
+    file: 'Analysis package (.zip, or its analysis.json)',
+    check(j) {
+      const r = res();
+      if (!need(r, j?.format === 'tlf-lab-analysis-package', 'This is not a TLF Programming Lab analysis package. Download it from the Submission page (Analysis package).')) return r;
+      need(r, j.study?.id === 'HRP-301', `This package is study ${j.study?.id}. Upload your HRP-301 hand-off from step 3 into the lab.`);
+      if (j.study?.id === 'HRP-301') need(r, j.handoff?.source?.kind === 'learner', 'This package was made from a hand-off that did not come from your own locked database. Use the hand-off you built in step 3.');
+      if (j.handoff?.source) need(r, j.handoff.source.lock === 'hard', `The database behind it is not hard-locked (${j.handoff.source.lock}).`);
+      const progs = j.programs ?? [];
+      need(r, progs.length >= 9, `The package has ${progs.length} programs; HRP-301 needs all nine.`);
+      const off = progs.filter((p) => !p.matched).map((p) => p.id);
+      need(r, off.length === 0, `Not yet matching the independent reference: ${off.join(', ')}.`);
+      const logs = progs.filter((p) => p.log !== 'clean').map((p) => p.id);
+      need(r, logs.length === 0, `Logs with issues: ${logs.join(', ')}. Run all programs again with headers and no warnings.`);
+      need(r, (j.conformance?.errors ?? 1) === 0, `${j.conformance?.errors} conformance error(s) to fix.`);
+      need(r, (j.conformance?.unexplained ?? 1) === 0, `${j.conformance?.unexplained} conformance finding(s) not explained in the reviewer’s guide.`);
+      r.found.push(`Study ${j.study?.id} (${j.study?.cut ?? ''})${j.handoff?.source?.kind === 'learner' ? `, from your locked database (“${j.handoff.source.name}”)` : ''}`, `${progs.filter((p) => p.matched).length} of ${progs.length} programs match the independent reference`, `Conformance: ${j.conformance?.errors ?? '?'} errors, ${j.conformance?.warnings ?? '?'} warnings or notices, ${j.conformance?.explained ?? 0} explained`, (j.files ?? []).includes('define.xml') ? 'define.xml and the reviewer’s guide included' : 'define.xml missing');
+      return r;
+    },
+  },
+  {
     id: 'nda', phase: 'The marketing application', title: 'File the NDA', app: 'eCTD Dossier Builder', url: GH + 'ectd-dossier-builder/',
     story: 'The phase 3 studies VERDANT-1 and VERDANT-2 succeed. Halcyon Ridge files the new drug application for Ostrevia 10 mg and 25 mg: Module 1 with Form FDA 356h, the Module 2 summaries, the quality, nonclinical and clinical modules, as sequence 0000.',
     todo: ['Create a project: Ostrevia, US NDA (or start mission 1, which builds the same sequence).', 'Build sequence 0000, clear the validator and publish it.', 'Export the project file. Keep it: the next steps add to it.'],
