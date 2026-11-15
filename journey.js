@@ -1,8 +1,8 @@
 // One Product, Whole Lifecycle: Ostrevia (lumiravostat) film-coated tablets, Halcyon Ridge
 // Pharmaceuticals, from the IND to a post-approval safety label update. Each step names the app,
 // what to do there and the hand-off file it produces; the page reads that file and checks it.
-// The trial data steps use HRP-301 (VERDANT-1), the Ostrevia phase 3 trial: locked in the CDM
-// console, then mapped in the SDTM trainer from that same locked file. Keep the checks in step.
+// The trial steps use HRP-301 (VERDANT-1), the Ostrevia phase 3 trial: its protocol written in the
+// Protocol Builder, its database locked in the CDM console, then mapped in the SDTM trainer from that same locked file. Keep the checks in step.
 
 const GH = 'https://randomthingsonlineatsk-cloud.github.io/';
 const OSTREVIA = 'nce-tablet';
@@ -37,6 +37,25 @@ export const STEPS = [
       sent(r, s0, 'The initial IND');
       if (s0) r.found.push(seqLine(s0));
       r.found.push(`Project “${p.name}”, ${p.region} ${String(p.appType).toUpperCase()}`);
+      return r;
+    },
+  },
+  {
+    id: 'protocol', phase: 'Before the first patient', title: 'Write the phase 3 protocol', app: 'Protocol Builder', url: GH + 'protocol-builder/',
+    story: 'Before VERDANT-1 (HRP-301) can start, medical writing finishes its protocol in the ICH M11 structure. The draft is missing the estimand strategies, part of the schedule of activities and the multiplicity section, and two numbers disagree between the synopsis and the body. The finished protocol goes to the database build as CDISC USDM v4 data.',
+    todo: ['On the Protocol Builder home page, choose “Start the VERDANT-1 protocol”.', 'Complete the estimands, the schedule and the statistics, and clear the consistency checks: no high findings and at most two medium.', 'On the Export page, download the hand-off for the Ostrevia lifecycle journey.'],
+    file: 'Protocol hand-off (.json)',
+    check(j) {
+      const r = res();
+      if (!need(r, j?.format === 'protocol-builder-handoff', 'This is not a Protocol Builder hand-off. Download it from the Export page (Hand-off for the Ostrevia lifecycle journey).')) return r;
+      need(r, j.protocol?.id === 'HRP-301', `This protocol is ${j.protocol?.id}. The Ostrevia phase 3 trial is HRP-301 (VERDANT-1): start it from the home page.`);
+      need(r, j.protocol?.source !== 'example', 'This is the app’s worked example, not your protocol. Start “the VERDANT-1 protocol” on the home page and finish it.');
+      need(r, (j.consistency?.highOpen ?? 1) === 0, `${j.consistency?.highOpen} high consistency finding(s) left. High findings must be fixed, not justified.`);
+      need(r, (j.consistency?.medium ?? 3) <= 2, `${j.consistency?.medium} medium findings are open; fix or justify all but two.`);
+      need(r, (j.usdm?.errors ?? 1) === 0, `The USDM export has ${j.usdm?.errors} error(s).`);
+      const gaps = (j.estimands ?? []).filter((e) => !e.summary || (e.strategies ?? []).some((x) => /\(none\)$/.test(x)));
+      need(r, (j.estimands ?? []).length > 0 && gaps.length === 0, `Estimands without a strategy or summary: ${gaps.map((e) => e.id).join(', ') || 'none defined'}.`);
+      r.found.push(`Protocol ${j.protocol?.id} version ${j.protocol?.version ?? ''}, project “${j.protocol?.project ?? ''}”`, `Consistency checks: ${j.consistency?.high ?? '?'} high, ${j.consistency?.medium ?? '?'} medium, ${j.consistency?.low ?? '?'} low (${j.consistency?.justified ?? 0} justified)`, `${(j.estimands ?? []).length} estimands; USDM ${j.usdm?.version ?? ''}: ${j.usdm?.errors ?? '?'} errors, ${j.usdm?.warnings ?? '?'} warnings`);
       return r;
     },
   },

@@ -11,7 +11,7 @@ const file = (n) => new File([readFileSync(new URL(n, F))], n);
 const json = (n) => JSON.parse(readFileSync(new URL(n, F), 'utf8'));
 let n = 0;
 
-const journey = [['ind', 'ind.ectd-project.json', true], ['ind', 'nda.ectd-project.json', false], ['cdm', 'cdm-hrp301-locked.json', true], ['cdm', 'cdm-hrp301-soft.json', false], ['cdm', 'cdm-hlv-locked.json', false],
+const journey = [['ind', 'ind.ectd-project.json', true], ['ind', 'nda.ectd-project.json', false], ['protocol', 'hrp301-protocol-handoff.json', true], ['protocol', 'hrp301-protocol-handoff-start.json', false], ['protocol', 'hrp301-protocol-handoff-example.json', false], ['protocol', 'ind.ectd-project.json', false], ['cdm', 'cdm-hrp301-locked.json', true], ['cdm', 'cdm-hrp301-soft.json', false], ['cdm', 'cdm-hlv-locked.json', false],
   ['sdtm', 'hrp301_sdtm_handoff.zip', true], ['sdtm', 'pkx_sdtm_handoff.zip', false], ['tlf', 'hrp301_analysis_package.zip', true], ['tlf', 'glv_analysis_package.zip', false], ['tlf', 'hrp301_sdtm_handoff.zip', false], ['nda', 'nda.ectd-project.json', true], ['nda', 'ind.ectd-project.json', false],
   ['cmc', 'change-package-us.json', true], ['label', 'labelling-package-ccds4-us.json', true], ['label', 'labelling-package-us.json', false], ['label', 'change-package-us.json', false],
   ['lifecycle', 'lifecycle.ectd-project.json', true], ['lifecycle', 'nda.ectd-project.json', false]];
