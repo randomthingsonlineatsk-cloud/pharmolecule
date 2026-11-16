@@ -1,13 +1,13 @@
 {
   "format": "protocol-builder-handoff",
   "schema": 1,
-  "exportedUtc": "2026-11-16T08:51:33.101Z",
+  "exportedUtc": "2026-11-16T09:06:24.299Z",
   "app": {
     "name": "Protocol Builder",
     "url": "https://randomthingsonlineatsk-cloud.github.io/protocol-builder/"
   },
   "learner": {
-    "userId": "L-zudo87ji",
+    "userId": "L-lm7q3xih",
     "classId": ""
   },
   "protocol": {
@@ -10241,7 +10241,7 @@
                     {
                       "id": "ExtCdash_P08",
                       "url": "https://randomthingsonlineatsk-cloud.github.io/protocol-builder/ext/cdash-fields",
-                      "valueString": "PREGDAT,PREGRES",
+                      "valueString": "PREGCBP,PREGDAT,PREGTYP,PREGRES",
                       "extensionAttributes": [],
                       "instanceType": "ExtensionAttribute"
                     }

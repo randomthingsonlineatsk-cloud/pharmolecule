@@ -79,13 +79,13 @@ export const STEPS = [
   {
     id: 'sdtm', phase: 'During the trial', title: 'Map the locked data to SDTM', app: 'SDTM Mapping Trainer', url: GH + 'sdtm-mapping-trainer/',
     story: 'The locked VERDANT-1 database goes to the standards team, with the IRT’s unblinded list and the central laboratory’s final transfer. They map it to CDISC SDTM, write define.xml, clear the conformance rules and hand the package on. The same datasets go into Module 5 of the NDA.',
-    todo: ['On the Project tab, “Import a CDM Console study” and choose the file from step 2: it opens an HRP-301 project on your own locked data.', 'Map the domains (missions S45 to S47 score them) and run validation until nothing must be fixed; explain what remains.', 'Download the hand-off zip from the Datasets tab.'],
+    todo: ['On the Project tab, “Import a CDM Console study” and choose the file from step 3: it opens an HRP-301 project on your own locked data.', 'Map the domains (missions S45 to S47 score them) and run validation until nothing must be fixed; explain what remains.', 'Download the hand-off zip from the Datasets tab.'],
     file: 'SDTM hand-off (.zip, or its handoff.json)',
     check(j) {
       const r = res();
       if (!need(r, j?.format === 'sdtm-trainer-handoff', 'This is not an SDTM Mapping Trainer hand-off. Download it from the Datasets tab (Hand-off to the TLF Programming Lab).')) return r;
-      need(r, j.study?.id === 'HRP-301', `This package is study ${j.study?.id}. Import your locked HRP-301 project file from step 2 into the trainer.`);
-      if (j.study?.id === 'HRP-301') need(r, j.study?.source?.kind === 'learner', 'This package was made from the trainer’s copy of the database, not your own locked file from step 2. Import your project file on the Project tab and build the package again.');
+      need(r, j.study?.id === 'HRP-301', `This package is study ${j.study?.id}. Import your locked HRP-301 project file from step 3 into the trainer.`);
+      if (j.study?.id === 'HRP-301') need(r, j.study?.source?.kind === 'learner', 'This package was made from the trainer’s copy of the database, not your own locked file from step 3. Import your project file on the Project tab and build the package again.');
       if (j.study?.source) need(r, j.study.source.lock === 'hard', `The database it was made from is not hard-locked (${j.study.source.lock}).`);
       const names = (j.datasets ?? []).map((d) => d.name);
       need(r, names.includes('DM'), 'The package has no DM dataset.');
@@ -99,13 +99,13 @@ export const STEPS = [
   {
     id: 'tlf', phase: 'During the trial', title: 'Program the analysis and the study report tables', app: 'TLF Programming Lab', url: GH + 'tlf-programming-lab/',
     story: 'The statisticians take the SDTM package on to the analysis: ADaM datasets for VERDANT-1, the primary endpoint (IGA-CHE treatment success at Week 16), HECSI-75, the safety tables and listing, each output checked by an independent second program. With define.xml and the reviewer’s guide they go into Module 5 next to the SDTM.',
-    todo: ['On the Home page, upload the SDTM hand-off zip from step 3: it opens an HRP-301 project on your own data.', 'Program every analysis dataset, table, listing and figure until each matches the independent reference, with program headers and a clean log (Runs & tracker: run all programs).', 'On the Submission page, run the conformance checks, explain what remains, and download the analysis package (.zip).'],
+    todo: ['On the Home page, upload the SDTM hand-off zip from step 4: it opens an HRP-301 project on your own data.', 'Program every analysis dataset, table, listing and figure until each matches the independent reference, with program headers and a clean log (Runs & tracker: run all programs).', 'On the Submission page, run the conformance checks, explain what remains, and download the analysis package (.zip).'],
     file: 'Analysis package (.zip, or its analysis.json)',
     check(j) {
       const r = res();
       if (!need(r, j?.format === 'tlf-lab-analysis-package', 'This is not a TLF Programming Lab analysis package. Download it from the Submission page (Analysis package).')) return r;
-      need(r, j.study?.id === 'HRP-301', `This package is study ${j.study?.id}. Upload your HRP-301 hand-off from step 3 into the lab.`);
-      if (j.study?.id === 'HRP-301') need(r, j.handoff?.source?.kind === 'learner', 'This package was made from a hand-off that did not come from your own locked database. Use the hand-off you built in step 3.');
+      need(r, j.study?.id === 'HRP-301', `This package is study ${j.study?.id}. Upload your HRP-301 hand-off from step 4 into the lab.`);
+      if (j.study?.id === 'HRP-301') need(r, j.handoff?.source?.kind === 'learner', 'This package was made from a hand-off that did not come from your own locked database. Use the hand-off you built in step 4.');
       if (j.handoff?.source) need(r, j.handoff.source.lock === 'hard', `The database behind it is not hard-locked (${j.handoff.source.lock}).`);
       const progs = j.programs ?? [];
       need(r, progs.length >= 9, `The package has ${progs.length} programs; HRP-301 needs all nine.`);
@@ -165,8 +165,8 @@ export const STEPS = [
   },
   {
     id: 'lifecycle', phase: 'After approval', title: 'Put both changes into the dossier', app: 'eCTD Dossier Builder', url: GH + 'ectd-dossier-builder/',
-    story: 'Publishing imports the change package and the labelling package into the NDA project from step 4. Each becomes a new sequence that replaces the right documents, so the dossier shows the product’s whole history.',
-    todo: ['Import the NDA project file from step 4, if it is not still in the app.', 'On the Sequences tab, use Import change package and Import labelling package.', 'Place the documents each to-do list asks for (with Form FDA 356h in 1.1), clear the validator, publish both sequences and export the project file again.'],
+    story: 'Publishing imports the change package and the labelling package into the NDA project from step 6. Each becomes a new sequence that replaces the right documents, so the dossier shows the product’s whole history.',
+    todo: ['Import the NDA project file from step 6, if it is not still in the app.', 'On the Sequences tab, use Import change package and Import labelling package.', 'Place the documents each to-do list asks for (with Form FDA 356h in 1.1), clear the validator, publish both sequences and export the project file again.'],
     file: 'eCTD project file (.json)',
     check(j) {
       const r = res(); const p = ectdProject(r, j); if (!p) return r;
@@ -175,7 +175,7 @@ export const STEPS = [
       const cmc = seqs.find((s) => s.changePackage), lab = seqs.find((s) => s.labellingPackage);
       if (need(r, cmc, 'No sequence was made from a change package yet.')) sent(r, cmc, 'The manufacturing change');
       if (need(r, lab, 'No sequence was made from a labelling package yet.')) sent(r, lab, 'The labeling supplement');
-      if (lab) need(r, /^Labeling supplement:/.test(lab.description ?? ''), 'The labelling sequence was not made from the CCDS 4.0 change request. Import the package from the change (step 6).');
+      if (lab) need(r, /^Labeling supplement:/.test(lab.description ?? ''), 'The labelling sequence was not made from the CCDS 4.0 change request. Import the package from the change (step 8).');
       r.found.push(...[...seqs].sort((a, b) => a.number.localeCompare(b.number)).map(seqLine));
       return r;
     },
