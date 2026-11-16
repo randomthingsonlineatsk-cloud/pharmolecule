@@ -1,0 +1,63 @@
+{
+  "kind": "pharmolecule/passport-record",
+  "schema": 1,
+  "app": "protocol-builder",
+  "appName": "Protocol Builder",
+  "certificate": "Protocol authoring (ICH M11), with distinction",
+  "appUrl": "https://randomthingsonlineatsk-cloud.github.io/protocol-builder/",
+  "name": "Asha Verma",
+  "userId": "L-test0004",
+  "issued": "2026-11-16",
+  "basis": "asha verma|M1:90:expert,M2:91:expert,M3:92:expert,M4:90:expert,M5:91:pass,M6:92:pass,M7:90:pass,M8:91:pass,M9:92:pass,M10:90:pass|quiz:15/15|L-test0004",
+  "code": "PB-1C5E9-D06D0",
+  "criteria": [
+    {
+      "label": "M1 Read a protocol passed",
+      "met": true
+    },
+    {
+      "label": "M2 Objectives, endpoints and estimands for a dose-finding study passed",
+      "met": true
+    },
+    {
+      "label": "M3 Build the schedule of activities passed",
+      "met": true
+    },
+    {
+      "label": "M4 Write a phase 2 protocol passed",
+      "met": true
+    },
+    {
+      "label": "M5 Fix a protocol with 20 planted inconsistencies passed",
+      "met": true
+    },
+    {
+      "label": "M6 Size the study and control multiplicity passed",
+      "met": true
+    },
+    {
+      "label": "M7 Write an amendment after a safety signal passed",
+      "met": true
+    },
+    {
+      "label": "M8 Classify 15 changes for the US, EU and India passed",
+      "met": true
+    },
+    {
+      "label": "M9 Region readiness: close the EU and India gaps passed",
+      "met": true
+    },
+    {
+      "label": "M10 Hand off: from the protocol to the EDC build passed",
+      "met": true
+    },
+    {
+      "label": "All 15 Learn quizzes passed",
+      "met": true
+    }
+  ],
+  "distinction": true,
+  "alg": "cyrb53",
+  "notice": "Portfolio certificate from a training app. Not an accreditation.",
+  "seal": "1ab4884077225b"
+}
