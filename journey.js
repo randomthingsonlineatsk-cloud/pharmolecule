@@ -2,7 +2,8 @@
 // Pharmaceuticals, from the IND to a post-approval safety label update. Each step names the app,
 // what to do there and the hand-off file it produces; the page reads that file and checks it.
 // The trial steps use HRP-301 (VERDANT-1), the Ostrevia phase 3 trial: its protocol written in the
-// Protocol Builder, its database locked in the CDM console, then mapped in the SDTM trainer from that same locked file. Keep the checks in step.
+// Protocol Builder, its consent form written in the Plain Language Lab from that protocol, its database locked in the CDM console, then mapped in the SDTM trainer from that same locked file;
+// after the analysis, the lay summary of results is written from the TLF Programming Lab's results. Keep the checks in step.
 
 const GH = 'https://randomthingsonlineatsk-cloud.github.io/';
 const OSTREVIA = 'nce-tablet';
@@ -60,6 +61,26 @@ export const STEPS = [
     },
   },
   {
+    id: 'consent', phase: 'Before the first patient', title: 'Write the consent form people can read', app: 'Plain Language Lab', url: GH + 'plain-language-lab/',
+    story: 'The ethics committees in Canada, Germany, India and the United States will not approve VERDANT-1 without a consent form that people can understand. The draft generated from the protocol is in protocol language, reads above school grade 9 and leaves the alternatives, the payments and the injury cover unwritten. It must meet ICH E6(R3), 21 CFR 50.25 (with the key information first), EU CTR Article 29 and India’s NDCT Rules.',
+    todo: ['In the Protocol Builder, Export page, download the project file of your VERDANT-1 protocol from step 2.', 'In the Plain Language Lab, “Open a file…” on the home page and choose it: the consent form is drafted from your protocol.', 'In Consent and assent, rewrite the form until every required element is present, no section is left to write, and the form and its key information read at grade 8 or below.', 'On the Export page, download the hand-off for the Ostrevia lifecycle journey.'],
+    file: 'Plain Language Lab hand-off (.json)',
+    check(j) {
+      const r = res();
+      if (!need(r, j?.format === 'plain-language-lab-handoff', 'This is not a Plain Language Lab hand-off. Download it from the Export page (Hand-off for the Ostrevia lifecycle journey).')) return r;
+      need(r, j.study?.id === 'HRP-301', `This study is ${j.study?.id}. Open your VERDANT-1 (HRP-301) protocol file from the Protocol Builder.`);
+      need(r, j.study?.origin === 'protocol-builder', j.study?.origin === 'example' ? 'This is the app’s worked example. Open your own Protocol Builder project file from step 2, so the consent form is drafted from your protocol.' : 'This hand-off comes from a mission, not your protocol. Open your own Protocol Builder project file from step 2.');
+      const c = j.consent ?? {};
+      need(r, (c.elements?.missing ?? [1]).length === 0, `Required elements missing: ${(c.elements?.missing ?? []).join(', ')}.`);
+      need(r, (c.gaps ?? []).length === 0, `Sections still to write: ${(c.gaps ?? []).join(', ')}.`);
+      need(r, c.keyFirst === true, 'The key information must be the first section (21 CFR 50.20(a)(5)).');
+      need(r, typeof c.grade === 'number' && c.grade <= (c.target ?? 8), `The form reads at grade ${c.grade}; the target is ${c.target ?? 8} or below.`);
+      need(r, typeof c.keyGrade === 'number' && c.keyGrade <= (c.target ?? 8), `The key information reads at grade ${c.keyGrade}; the target is ${c.target ?? 8} or below.`);
+      r.found.push(`${j.study?.acronym ?? ''} (${j.study?.id}) consent form version ${c.version ?? ''}, regions ${(c.regions ?? []).join(', ')}`, `Required elements: ${(c.elements?.total ?? 0) - (c.elements?.missing ?? []).length} of ${c.elements?.total ?? '?'} present`, `Reading level: grade ${c.grade} (key information ${c.keyGrade}, ${c.keyWords} words)`, `India: audio-video recording of consent ${c.india?.recording === 'not required' ? 'not required for these participants' : `required (${c.india?.recording})`}`);
+      return r;
+    },
+  },
+  {
     id: 'cdm', phase: 'During the trial', title: 'Clean and lock the trial database', app: 'CDM Query & Edit-Check Console', url: GH + 'cdm-query-console/',
     story: 'VERDANT-1 (protocol HRP-301) runs at four sites. Data management answers the edit checks, works the queries with the sites, codes the adverse events and medications, reconciles the SAEs and the central laboratory and IRT transfers, classifies the deviations, and locks the database once every casebook is signed.',
     todo: ['Start mission M20 “Lock the Ostrevia trial” (Missions tab), or a new HRP-301 project on the Project tab and run the whole study yourself.', 'Finish what is left and hard-lock the database with the lead data manager’s and the sponsor’s signatures.', 'Export the project file from the Project tab.'],
@@ -79,13 +100,13 @@ export const STEPS = [
   {
     id: 'sdtm', phase: 'During the trial', title: 'Map the locked data to SDTM', app: 'SDTM Mapping Trainer', url: GH + 'sdtm-mapping-trainer/',
     story: 'The locked VERDANT-1 database goes to the standards team, with the IRT’s unblinded list and the central laboratory’s final transfer. They map it to CDISC SDTM, write define.xml, clear the conformance rules and hand the package on. The same datasets go into Module 5 of the NDA.',
-    todo: ['On the Project tab, “Import a CDM Console study” and choose the file from step 3: it opens an HRP-301 project on your own locked data.', 'Map the domains (missions S45 to S47 score them) and run validation until nothing must be fixed; explain what remains.', 'Download the hand-off zip from the Datasets tab.'],
+    todo: ['On the Project tab, “Import a CDM Console study” and choose the file from step 4: it opens an HRP-301 project on your own locked data.', 'Map the domains (missions S45 to S47 score them) and run validation until nothing must be fixed; explain what remains.', 'Download the hand-off zip from the Datasets tab.'],
     file: 'SDTM hand-off (.zip, or its handoff.json)',
     check(j) {
       const r = res();
       if (!need(r, j?.format === 'sdtm-trainer-handoff', 'This is not an SDTM Mapping Trainer hand-off. Download it from the Datasets tab (Hand-off to the TLF Programming Lab).')) return r;
-      need(r, j.study?.id === 'HRP-301', `This package is study ${j.study?.id}. Import your locked HRP-301 project file from step 3 into the trainer.`);
-      if (j.study?.id === 'HRP-301') need(r, j.study?.source?.kind === 'learner', 'This package was made from the trainer’s copy of the database, not your own locked file from step 3. Import your project file on the Project tab and build the package again.');
+      need(r, j.study?.id === 'HRP-301', `This package is study ${j.study?.id}. Import your locked HRP-301 project file from step 4 into the trainer.`);
+      if (j.study?.id === 'HRP-301') need(r, j.study?.source?.kind === 'learner', 'This package was made from the trainer’s copy of the database, not your own locked file from step 4. Import your project file on the Project tab and build the package again.');
       if (j.study?.source) need(r, j.study.source.lock === 'hard', `The database it was made from is not hard-locked (${j.study.source.lock}).`);
       const names = (j.datasets ?? []).map((d) => d.name);
       need(r, names.includes('DM'), 'The package has no DM dataset.');
@@ -99,12 +120,12 @@ export const STEPS = [
   {
     id: 'tlf', phase: 'During the trial', title: 'Program the analysis and the study report tables', app: 'TLF Programming Lab', url: GH + 'tlf-programming-lab/',
     story: 'The statisticians take the SDTM package on to the analysis: ADaM datasets for VERDANT-1, the primary endpoint (IGA-CHE treatment success at Week 16), HECSI-75, the safety tables and listing, each output checked by an independent second program. With define.xml and the reviewer’s guide they go into Module 5 next to the SDTM.',
-    todo: ['On the Home page, upload the SDTM hand-off zip from step 4: it opens an HRP-301 project on your own data.', 'Program every analysis dataset, table, listing and figure until each matches the independent reference, with program headers and a clean log (Runs & tracker: run all programs).', 'On the Submission page, run the conformance checks, explain what remains, and download the analysis package (.zip).'],
+    todo: ['On the Home page, upload the SDTM hand-off zip from step 5: it opens an HRP-301 project on your own data.', 'Program every analysis dataset, table, listing and figure until each matches the independent reference, with program headers and a clean log (Runs & tracker: run all programs).', 'On the Submission page, run the conformance checks, explain what remains, and download the analysis package (.zip).'],
     file: 'Analysis package (.zip, or its analysis.json)',
     check(j) {
       const r = res();
       if (!need(r, j?.format === 'tlf-lab-analysis-package', 'This is not a TLF Programming Lab analysis package. Download it from the Submission page (Analysis package).')) return r;
-      need(r, j.study?.id === 'HRP-301', `This package is study ${j.study?.id}. Upload your HRP-301 hand-off from step 4 into the lab.`);
+      need(r, j.study?.id === 'HRP-301', `This package is study ${j.study?.id}. Upload your HRP-301 hand-off from step 5 into the lab.`);
       if (j.study?.id === 'HRP-301') need(r, j.handoff?.source?.kind === 'learner', 'This package was made from a hand-off that did not come from your own locked database. Use the hand-off you built in step 4.');
       if (j.handoff?.source) need(r, j.handoff.source.lock === 'hard', `The database behind it is not hard-locked (${j.handoff.source.lock}).`);
       const progs = j.programs ?? [];
@@ -116,6 +137,28 @@ export const STEPS = [
       need(r, (j.conformance?.errors ?? 1) === 0, `${j.conformance?.errors} conformance error(s) to fix.`);
       need(r, (j.conformance?.unexplained ?? 1) === 0, `${j.conformance?.unexplained} conformance finding(s) not explained in the reviewer’s guide.`);
       r.found.push(`Study ${j.study?.id} (${j.study?.cut ?? ''})${j.handoff?.source?.kind === 'learner' ? `, from your locked database (“${j.handoff.source.name}”)` : ''}`, `${progs.filter((p) => p.matched).length} of ${progs.length} programs match the independent reference`, `Conformance: ${j.conformance?.errors ?? '?'} errors, ${j.conformance?.warnings ?? '?'} warnings or notices, ${j.conformance?.explained ?? 0} explained`, (j.files ?? []).includes('define.xml') ? 'define.xml and the reviewer’s guide included' : 'define.xml missing');
+      return r;
+    },
+  },
+  {
+    id: 'lay', phase: 'During the trial', title: 'Write the lay summary of results', app: 'Plain Language Lab', url: GH + 'plain-language-lab/',
+    story: 'Within a year of the end of VERDANT-1, the EU Clinical Trials Regulation (Article 37(4) and Annex V) requires a summary of the results that the public can understand, whatever the results. It is written from the same analysis results as the study report, with honest numbers: natural frequencies, differences in words, the uncertainty, and no p-values or promotion.',
+    todo: ['In the TLF Programming Lab, Submission page, download “Analysis results (ARS JSON)” from your analysis in step 6.', 'In the Plain Language Lab, open your VERDANT-1 study from step 3, go to Lay summary and open that results file.', 'Write the sections still to write until all ten Annex V elements pass and the number checks are clear, at grade 8 or below.', 'On the Export page, download the hand-off again.'],
+    file: 'Plain Language Lab hand-off (.json)',
+    check(j) {
+      const r = res();
+      if (!need(r, j?.format === 'plain-language-lab-handoff', 'This is not a Plain Language Lab hand-off. Download it from the Export page (Hand-off for the Ostrevia lifecycle journey).')) return r;
+      need(r, j.study?.id === 'HRP-301', `This study is ${j.study?.id}. Use your VERDANT-1 (HRP-301) study.`);
+      need(r, j.study?.origin === 'protocol-builder', 'Use the VERDANT-1 study you opened from your own protocol in step 3, not the worked example or a mission.');
+      const l = j.lay ?? {};
+      if (need(r, l.results, 'No analysis results yet. Open the ARS JSON from the TLF Programming Lab on the Lay summary page.')) {
+        need(r, l.results.study === 'HRP-301', `The results are for ${l.results.study}; use the HRP-301 results from step 6.`);
+        need(r, !l.results.fromExample, 'The lay summary still uses the app’s worked-example results. Open the analysis results file from your own analysis in step 6.');
+      }
+      need(r, (l.checks?.failed ?? [1]).length === 0, `Annex V elements not met yet: ${(l.checks?.failed ?? []).join(', ')}.`);
+      need(r, (l.numbers ?? []).length === 0, `Number checks to fix: ${(l.numbers ?? []).join(', ')}.`);
+      need(r, typeof l.grade === 'number' && l.grade <= (l.target ?? 8), `The summary reads at grade ${l.grade}; the target is ${l.target ?? 8} or below.`);
+      r.found.push(`Results from ${l.results?.source ?? 'no file'}${l.results ? ` (${l.results.study})` : ''}`, `Annex V elements: ${(l.checks?.total ?? 0) - (l.checks?.failed ?? []).length} of ${l.checks?.total ?? '?'} met`, `Reading level: grade ${l.grade}; number checks ${(l.numbers ?? []).length ? 'to fix' : 'clear'}`);
       return r;
     },
   },
@@ -165,8 +208,8 @@ export const STEPS = [
   },
   {
     id: 'lifecycle', phase: 'After approval', title: 'Put both changes into the dossier', app: 'eCTD Dossier Builder', url: GH + 'ectd-dossier-builder/',
-    story: 'Publishing imports the change package and the labelling package into the NDA project from step 6. Each becomes a new sequence that replaces the right documents, so the dossier shows the product’s whole history.',
-    todo: ['Import the NDA project file from step 6, if it is not still in the app.', 'On the Sequences tab, use Import change package and Import labelling package.', 'Place the documents each to-do list asks for (with Form FDA 356h in 1.1), clear the validator, publish both sequences and export the project file again.'],
+    story: 'Publishing imports the change package and the labelling package into the NDA project from step 8. Each becomes a new sequence that replaces the right documents, so the dossier shows the product’s whole history.',
+    todo: ['Import the NDA project file from step 8, if it is not still in the app.', 'On the Sequences tab, use Import change package and Import labelling package.', 'Place the documents each to-do list asks for (with Form FDA 356h in 1.1), clear the validator, publish both sequences and export the project file again.'],
     file: 'eCTD project file (.json)',
     check(j) {
       const r = res(); const p = ectdProject(r, j); if (!p) return r;
@@ -175,7 +218,7 @@ export const STEPS = [
       const cmc = seqs.find((s) => s.changePackage), lab = seqs.find((s) => s.labellingPackage);
       if (need(r, cmc, 'No sequence was made from a change package yet.')) sent(r, cmc, 'The manufacturing change');
       if (need(r, lab, 'No sequence was made from a labelling package yet.')) sent(r, lab, 'The labeling supplement');
-      if (lab) need(r, /^Labeling supplement:/.test(lab.description ?? ''), 'The labelling sequence was not made from the CCDS 4.0 change request. Import the package from the change (step 8).');
+      if (lab) need(r, /^Labeling supplement:/.test(lab.description ?? ''), 'The labelling sequence was not made from the CCDS 4.0 change request. Import the package from the change (step 10).');
       r.found.push(...[...seqs].sort((a, b) => a.number.localeCompare(b.number)).map(seqLine));
       return r;
     },

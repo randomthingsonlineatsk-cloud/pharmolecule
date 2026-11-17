@@ -16,6 +16,7 @@ export const APPS = {
   'edc-study-build-lab': { name: 'EDC Study Build Lab', url: 'https://randomthingsonlineatsk-cloud.github.io/edc-study-build-lab/', alg: 'cyrb53', prefix: 'EDC-', certs: 1 },
   'medical-coding-trainer': { name: 'Medical Coding Trainer', url: 'https://randomthingsonlineatsk-cloud.github.io/medical-coding-trainer/', alg: 'cyrb53', prefix: 'MCT-', certs: 1 },
   'protocol-builder': { name: 'Protocol Builder', url: 'https://randomthingsonlineatsk-cloud.github.io/protocol-builder/', alg: 'cyrb53', prefix: 'PB-', certs: 1 },
+  'plain-language-lab': { name: 'Plain Language Lab', url: 'https://randomthingsonlineatsk-cloud.github.io/plain-language-lab/', alg: 'cyrb53', prefix: 'PL-', certs: 1 },
   'tlf-programming-lab': { name: 'TLF Programming Lab', url: 'https://randomthingsonlineatsk-cloud.github.io/tlf-programming-lab/', alg: 'cyrb53', prefix: 'TLF-', certs: 1 },
 };
 

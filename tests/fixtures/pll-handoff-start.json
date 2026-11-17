@@ -1,0 +1,78 @@
+{
+  "format": "plain-language-lab-handoff",
+  "schema": 1,
+  "exportedUtc": "2026-11-17T10:00:00.000Z",
+  "app": "plain-language-lab",
+  "study": {
+    "id": "HRP-301",
+    "acronym": "VERDANT-1",
+    "project": "VERDANT-1: patient documents (from the Protocol Builder)",
+    "origin": "protocol-builder",
+    "mission": null
+  },
+  "consent": {
+    "version": "1.0",
+    "regions": [
+      "GCP",
+      "KEY",
+      "US",
+      "EU",
+      "IN"
+    ],
+    "elements": {
+      "total": 60,
+      "missing": [
+        "GCP-8",
+        "GCP-9",
+        "GCP-10",
+        "US-a4",
+        "US-a6",
+        "US-b3",
+        "EU-a4",
+        "EU-d",
+        "IN-8",
+        "IN-10",
+        "IN-11"
+      ]
+    },
+    "grade": 9.3,
+    "target": 8,
+    "keyFirst": true,
+    "keyGrade": 8.4,
+    "keyWords": 114,
+    "gaps": [
+      "alternatives",
+      "costs",
+      "injury"
+    ],
+    "india": {
+      "recording": "not required",
+      "countries": [
+        "Canada",
+        "Germany",
+        "India",
+        "the United States"
+      ]
+    }
+  },
+  "lay": {
+    "results": {
+      "study": "HRP-301",
+      "source": "TLF Programming Lab worked example",
+      "fromExample": true
+    },
+    "checks": {
+      "total": 10,
+      "failed": [
+        "PL-L02",
+        "PL-L03",
+        "PL-L06",
+        "PL-L08",
+        "PL-L09"
+      ]
+    },
+    "grade": 7.2,
+    "target": 8,
+    "numbers": []
+  }
+}
