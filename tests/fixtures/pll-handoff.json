@@ -1,0 +1,56 @@
+{
+  "format": "plain-language-lab-handoff",
+  "schema": 1,
+  "exportedUtc": "2026-11-17T12:00:00.000Z",
+  "app": "plain-language-lab",
+  "study": {
+    "id": "HRP-301",
+    "acronym": "VERDANT-1",
+    "project": "VERDANT-1: patient documents (from the Protocol Builder)",
+    "origin": "protocol-builder",
+    "mission": null
+  },
+  "consent": {
+    "version": "1.0",
+    "regions": [
+      "GCP",
+      "KEY",
+      "US",
+      "EU",
+      "IN"
+    ],
+    "elements": {
+      "total": 60,
+      "missing": []
+    },
+    "grade": 5.3,
+    "target": 8,
+    "keyFirst": true,
+    "keyGrade": 3.8,
+    "keyWords": 108,
+    "gaps": [],
+    "india": {
+      "recording": "not required",
+      "countries": [
+        "Canada",
+        "Germany",
+        "India",
+        "the United States"
+      ]
+    }
+  },
+  "lay": {
+    "results": {
+      "study": "HRP-301",
+      "source": "ars-reporting-event.json",
+      "fromExample": false
+    },
+    "checks": {
+      "total": 10,
+      "failed": []
+    },
+    "grade": 6.4,
+    "target": 8,
+    "numbers": []
+  }
+}
