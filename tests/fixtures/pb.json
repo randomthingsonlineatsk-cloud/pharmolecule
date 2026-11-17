@@ -8,8 +8,8 @@
   "name": "Asha Verma",
   "userId": "L-test0004",
   "issued": "2026-11-16",
-  "basis": "asha verma|M1:90:expert,M2:91:expert,M3:92:expert,M4:90:expert,M5:91:pass,M6:92:pass,M7:90:pass,M8:91:pass,M9:92:pass,M10:90:pass|quiz:17/17|L-test0004",
-  "code": "PB-494B1-4A393",
+  "basis": "asha verma|M1:90:expert,M2:91:expert,M3:92:expert,M4:90:expert,M5:91:pass,M6:92:pass,M7:90:pass,M8:91:pass,M9:92:pass,M10:90:pass|quiz:20/20|L-test0004",
+  "code": "PB-7AA67-1A823",
   "criteria": [
     {
       "label": "M1 Read a protocol passed",
@@ -52,12 +52,12 @@
       "met": true
     },
     {
-      "label": "All 17 Learn quizzes passed",
+      "label": "All 20 Learn quizzes passed",
       "met": true
     }
   ],
   "distinction": false,
   "alg": "cyrb53",
   "notice": "Portfolio certificate from a training app. Not an accreditation.",
-  "seal": "1bf80606631911"
+  "seal": "1e97be93e9884a"
 }
