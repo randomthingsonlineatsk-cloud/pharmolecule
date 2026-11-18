@@ -8,8 +8,8 @@
   "name": "Asha Verma",
   "userId": "U-test0005",
   "issued": "2026-11-17",
-  "basis": "asha verma|PL1:96:expert,PL2:96:expert,PL3:96:expert,PL4:96:expert,PL5:85:passed,PL6:85:passed,PL7:85:passed,PL8:85:passed,PL9:85:passed,PL10:85:passed,PL11:85:passed,PL12:85:passed|quiz:13/13|skills:7/7|U-test0005",
-  "code": "PL-26D2F-5B48B",
+  "basis": "asha verma|PL1:96:expert,PL2:96:expert,PL3:96:expert,PL4:96:expert,PL5:85:passed,PL6:85:passed,PL7:85:passed,PL8:85:passed,PL9:85:passed,PL10:85:passed,PL11:85:passed,PL12:85:passed,PL13:85:passed,PL14:85:passed,PL15:85:passed,PL16:85:passed,PL17:85:passed,PL18:85:passed,PL19:85:passed|quiz:19/19|skills:7/7|U-test0005",
+  "code": "PL-F2DC5-0735D",
   "criteria": [
     {
       "label": "PL1 Rewrite five consent and leaflet passages passed",
@@ -32,7 +32,7 @@
       "met": true
     },
     {
-      "label": "All 13 Learn quizzes passed (2 of 3 or better)",
+      "label": "All 19 Learn quizzes passed (2 of 3 or better)",
       "met": true
     },
     {
@@ -43,5 +43,5 @@
   "distinction": true,
   "alg": "cyrb53",
   "notice": "Portfolio certificate from a training app. Not an accreditation.",
-  "seal": "10aba03bd9bee8"
+  "seal": "05c55608393f45"
 }
