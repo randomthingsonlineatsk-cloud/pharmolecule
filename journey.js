@@ -3,7 +3,8 @@
 // what to do there and the hand-off file it produces; the page reads that file and checks it.
 // The trial steps use HRP-301 (VERDANT-1), the Ostrevia phase 3 trial: its protocol written in the
 // Protocol Builder, its consent form written in the Plain Language Lab from that protocol, its database locked in the CDM console, then mapped in the SDTM trainer from that same locked file;
-// after the analysis, the lay summary of results is written from the TLF Programming Lab's results. Keep the checks in step.
+// after the analysis, the clinical study report is written in the CSR & Narrative Studio and the lay summary of results
+// from the same results (the TLF Programming Lab's file or the Studio's lay results). Keep the checks in step.
 
 const GH = 'https://randomthingsonlineatsk-cloud.github.io/';
 const OSTREVIA = 'nce-tablet';
@@ -141,9 +142,33 @@ export const STEPS = [
     },
   },
   {
+    id: 'csr', phase: 'During the trial', title: 'Write the clinical study report', app: 'CSR & Narrative Studio', url: GH + 'csr-narrative-studio/',
+    story: 'The medical writer turns the tables, listings and figures into the VERDANT-1 clinical study report, structured as ICH E3 requires: every number in the text tied to its cell, the methods in the past tense with the amendment and the changes to the planned analyses, a narrative for each participant with a serious adverse event, and a discussion that claims no more than the results show. The report goes through review and is signed by the author, an approver and the coordinating investigator. It then goes into Module 5.3.5.1 of the NDA and feeds the lay summary.',
+    todo: ['In the CSR & Narrative Studio, start a report for HRP-301 and, on the Export page, open your analysis package (.zip) from step 6, so the tables are your own results.', 'Write every section until the text-versus-table checker shows no errors; write and QC the narratives (Narratives page).', 'Take the report through review: resolve the comments, pass QC, sign as author; the approver and the coordinating investigator sign; move it to approved.', 'On the Export page, download “Hand-off for the Ostrevia journey (.json)”.'],
+    file: 'CSR & Narrative Studio hand-off (.json)',
+    check(j) {
+      const r = res();
+      if (!need(r, j?.format === 'csr-studio-handoff', 'This is not a CSR & Narrative Studio hand-off. Download it from the Export page (Hand-off for the Ostrevia journey).')) return r;
+      need(r, j.study?.id === 'HRP-301', `This report is for ${j.study?.id}. Write the VERDANT-1 (HRP-301) report.`);
+      need(r, j.study?.kind !== 'mission', 'This is a mission project. Start your own HRP-301 report for the journey.');
+      if (need(r, j.outputs?.own, 'The report still uses the Studio’s reference tables. Open your analysis package from step 6 on the Export page.')) {
+        need(r, j.outputs.from?.kind === 'package', 'Open the analysis package (.zip) from step 6, not a single results file, so the report knows where the data came from.');
+        if (j.outputs.from?.kind === 'package') need(r, j.outputs.from.handoff === 'learner', 'The analysis package was not made from your own locked database. Use the package from step 6.');
+      }
+      need(r, (j.checker?.errors ?? 1) === 0, `${j.checker?.errors} number(s) in the text do not match the tables (sections ${(j.checker?.sections ?? []).join(', ')}).`);
+      need(r, (j.toWrite ?? [1]).length === 0, `Sections still to write: ${(j.toWrite ?? []).slice(0, 8).join(', ')}${(j.toWrite ?? []).length > 8 ? '…' : ''}.`);
+      const nr = j.narratives;
+      if (need(r, nr && nr.needed > 0, 'The narratives have not been measured. Open the Narratives page, write them and run QC.')) need(r, nr.clean === nr.needed, `${nr.clean} of ${nr.needed} narratives pass QC.`);
+      need(r, j.stage === 'approved', `The report is at the ${j.stage} stage; take it to approved.`);
+      need(r, j.signatures?.investigator, 'The coordinating investigator has not signed (E3 16.1.5).');
+      r.found.push(`Study ${j.study?.id}: “${j.study?.project}”, version ${j.version}, ${j.stage}`, `Tables: ${j.outputs?.source}`, `Checker errors: ${j.checker?.errors ?? '?'}; narratives passing QC: ${nr ? `${nr.clean} of ${nr.needed}` : 'not measured'}`);
+      return r;
+    },
+  },
+  {
     id: 'lay', phase: 'During the trial', title: 'Write the lay summary of results', app: 'Plain Language Lab', url: GH + 'plain-language-lab/',
     story: 'Within a year of the end of VERDANT-1, the EU Clinical Trials Regulation (Article 37(4) and Annex V) requires a summary of the results that the public can understand, whatever the results. It is written from the same analysis results as the study report, with honest numbers: natural frequencies, differences in words, the uncertainty, and no p-values or promotion.',
-    todo: ['In the TLF Programming Lab, Submission page, download “Analysis results (ARS JSON)” from your analysis in step 6.', 'In the Plain Language Lab, open your VERDANT-1 study from step 3, go to Lay summary and open that results file.', 'Write the sections still to write until all ten Annex V elements pass and the number checks are clear, at grade 8 or below.', 'On the Export page, download the hand-off again.'],
+    todo: ['Get the results: in the CSR & Narrative Studio (step 7), Export page, download “Lay results for the Plain Language Lab”; or in the TLF Programming Lab, Submission page, download “Analysis results (ARS JSON)” from your analysis in step 6.', 'In the Plain Language Lab, open your VERDANT-1 study from step 3, go to Lay summary and open that results file.', 'Write the sections still to write until all ten Annex V elements pass and the number checks are clear, at grade 8 or below.', 'On the Export page, download the hand-off again.'],
     file: 'Plain Language Lab hand-off (.json)',
     check(j) {
       const r = res();
@@ -208,8 +233,8 @@ export const STEPS = [
   },
   {
     id: 'lifecycle', phase: 'After approval', title: 'Put both changes into the dossier', app: 'eCTD Dossier Builder', url: GH + 'ectd-dossier-builder/',
-    story: 'Publishing imports the change package and the labelling package into the NDA project from step 8. Each becomes a new sequence that replaces the right documents, so the dossier shows the product’s whole history.',
-    todo: ['Import the NDA project file from step 8, if it is not still in the app.', 'On the Sequences tab, use Import change package and Import labelling package.', 'Place the documents each to-do list asks for (with Form FDA 356h in 1.1), clear the validator, publish both sequences and export the project file again.'],
+    story: 'Publishing imports the change package and the labelling package into the NDA project from step 9. Each becomes a new sequence that replaces the right documents, so the dossier shows the product’s whole history.',
+    todo: ['Import the NDA project file from step 9, if it is not still in the app.', 'On the Sequences tab, use Import change package and Import labelling package.', 'Place the documents each to-do list asks for (with Form FDA 356h in 1.1), clear the validator, publish both sequences and export the project file again.'],
     file: 'eCTD project file (.json)',
     check(j) {
       const r = res(); const p = ectdProject(r, j); if (!p) return r;
@@ -218,7 +243,7 @@ export const STEPS = [
       const cmc = seqs.find((s) => s.changePackage), lab = seqs.find((s) => s.labellingPackage);
       if (need(r, cmc, 'No sequence was made from a change package yet.')) sent(r, cmc, 'The manufacturing change');
       if (need(r, lab, 'No sequence was made from a labelling package yet.')) sent(r, lab, 'The labeling supplement');
-      if (lab) need(r, /^Labeling supplement:/.test(lab.description ?? ''), 'The labelling sequence was not made from the CCDS 4.0 change request. Import the package from the change (step 10).');
+      if (lab) need(r, /^Labeling supplement:/.test(lab.description ?? ''), 'The labelling sequence was not made from the CCDS 4.0 change request. Import the package from the change (step 11).');
       r.found.push(...[...seqs].sort((a, b) => a.number.localeCompare(b.number)).map(seqLine));
       return r;
     },

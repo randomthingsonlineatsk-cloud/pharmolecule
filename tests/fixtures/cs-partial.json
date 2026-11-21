@@ -1,0 +1,47 @@
+{
+ "kind": "pharmolecule/passport-record",
+ "schema": 1,
+ "app": "csr-narrative-studio",
+ "appName": "CSR & Narrative Studio",
+ "certificate": "Clinical study reports and patient narratives",
+ "appUrl": "https://randomthingsonlineatsk-cloud.github.io/csr-narrative-studio/",
+ "name": "Asha Rao",
+ "userId": "U-test-0001",
+ "issued": "2026-11-22",
+ "basis": "asha rao|CS1:100:expert,CS2:90:passed|quiz:9/9|U-test-0001",
+ "code": "CS-15788-B0B49",
+ "criteria": [
+  {
+   "label": "CS1 Build the report shell for VERDANT-1 passed",
+   "met": true
+  },
+  {
+   "label": "CS2 Text-versus-table QC: fix 25 errors passed",
+   "met": true
+  },
+  {
+   "label": "CS4 Report the efficacy results in the right order passed",
+   "met": false
+  },
+  {
+   "label": "CS5 Write the safety overview passed",
+   "met": false
+  },
+  {
+   "label": "CS6 Write the four VERDANT-1 SAE narratives passed",
+   "met": false
+  },
+  {
+   "label": "CS12 Redact the CSR for public release passed",
+   "met": false
+  },
+  {
+   "label": "All 9 Learn quizzes passed (6 of 8 or better)",
+   "met": true
+  }
+ ],
+ "distinction": false,
+ "alg": "cyrb53",
+ "notice": "Portfolio certificate from a training app. Not an accreditation.",
+ "seal": "04daf83310b4d6"
+}

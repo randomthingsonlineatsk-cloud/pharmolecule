@@ -1,0 +1,39 @@
+{
+ "format": "csr-studio-handoff",
+ "schema": 1,
+ "exportedUtc": "2026-11-22T00:00:00Z",
+ "app": "csr-narrative-studio",
+ "study": {
+  "id": "HRP-301",
+  "project": "VERDANT-1 CSR",
+  "kind": "report",
+  "mission": null
+ },
+ "outputs": {
+  "source": "TLF Programming Lab analysis package: HRP-301 analysis (hrp301_analysis_package.zip)",
+  "own": true,
+  "from": {
+   "kind": "package",
+   "handoff": "learner",
+   "lock": "hard",
+   "project": "HRP-301 analysis"
+  }
+ },
+ "checker": {
+  "errors": 0,
+  "sections": []
+ },
+ "toWrite": [],
+ "narratives": {
+  "needed": 5,
+  "written": 5,
+  "clean": 5
+ },
+ "stage": "approved",
+ "version": 1,
+ "signatures": {
+  "author": true,
+  "approver": true,
+  "investigator": true
+ }
+}
