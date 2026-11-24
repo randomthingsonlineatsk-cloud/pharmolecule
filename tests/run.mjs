@@ -16,14 +16,15 @@ const journey = [['ind', 'ind.ectd-project.json', true], ['ind', 'nda.ectd-proje
   ['sdtm', 'hrp301_sdtm_handoff.zip', true], ['sdtm', 'pkx_sdtm_handoff.zip', false], ['tlf', 'hrp301_analysis_package.zip', true], ['tlf', 'glv_analysis_package.zip', false], ['tlf', 'hrp301_sdtm_handoff.zip', false], ['csr', 'csr-handoff.json', true], ['csr', 'csr-handoff-start.json', false], ['csr', 'pll-handoff.json', false], ['lay', 'pll-handoff.json', true], ['lay', 'pll-handoff-start.json', false], ['lay', 'pll-handoff-example.json', false],
   ['nda', 'nda.ectd-project.json', true], ['nda', 'ind.ectd-project.json', false],
   ['cmc', 'change-package-us.json', true], ['label', 'labelling-package-ccds4-us.json', true], ['label', 'labelling-package-us.json', false], ['label', 'change-package-us.json', false],
-  ['lifecycle', 'lifecycle.ectd-project.json', true], ['lifecycle', 'nda.ectd-project.json', false]];
+  ['lifecycle', 'lifecycle.ectd-project.json', true], ['lifecycle', 'nda.ectd-project.json', false],
+  ['publish', 'rgn-handoff.json', true], ['publish', 'rgn-handoff-start.json', false], ['publish', 'csr-handoff.json', false]];
 for (const [id, f, want] of journey) {
   const { json: j } = await readHandoffFile(file(f));
   const r = STEPS.find((s) => s.id === id).check(j);
   assert.equal(r.ok, want, `${id} ${f}: ${r.problems.join(' | ')}`); n++;
 }
 
-for (const [f, complete] of [['ectd.json', true], ['vc-unmet.json', false], ['lw-eu.json', true], ['cdm.json', true], ['sdtm.json', true], ['edc.json', true], ['mct.json', true], ['tlf.json', true], ['pb.json', true], ['pl.json', true], ['cs.json', true], ['cs-partial.json', false]]) {
+for (const [f, complete] of [['ectd.json', true], ['vc-unmet.json', false], ['lw-eu.json', true], ['cdm.json', true], ['sdtm.json', true], ['edc.json', true], ['mct.json', true], ['tlf.json', true], ['pb.json', true], ['pl.json', true], ['cs.json', true], ['cs-partial.json', false], ['rgn.json', true], ['rgn-partial.json', false]]) {
   const r = json(f);
   const v = await verifyRecord(r);
   assert.equal(v.ok, true, f); assert.equal(v.complete, complete, f);

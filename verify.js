@@ -18,6 +18,7 @@ export const APPS = {
   'protocol-builder': { name: 'Protocol Builder', url: 'https://randomthingsonlineatsk-cloud.github.io/protocol-builder/', alg: 'cyrb53', prefix: 'PB-', certs: 1 },
   'plain-language-lab': { name: 'Plain Language Lab', url: 'https://randomthingsonlineatsk-cloud.github.io/plain-language-lab/', alg: 'cyrb53', prefix: 'PL-', certs: 1 },
   'csr-narrative-studio': { name: 'CSR & Narrative Studio', url: 'https://randomthingsonlineatsk-cloud.github.io/csr-narrative-studio/', alg: 'cyrb53', prefix: 'CS-', certs: 1 },
+  'reporting-guideline-navigator': { name: 'Reporting Guideline Navigator', url: 'https://randomthingsonlineatsk-cloud.github.io/reporting-guideline-navigator/', alg: 'cyrb53', prefix: 'RG-', certs: 1 },
   'tlf-programming-lab': { name: 'TLF Programming Lab', url: 'https://randomthingsonlineatsk-cloud.github.io/tlf-programming-lab/', alg: 'cyrb53', prefix: 'TLF-', certs: 1 },
 };
 

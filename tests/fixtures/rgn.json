@@ -1,0 +1,47 @@
+{
+  "kind": "pharmolecule/passport-record",
+  "schema": 1,
+  "app": "reporting-guideline-navigator",
+  "appName": "Reporting Guideline Navigator",
+  "certificate": "Reporting guidelines and publication writing, with distinction",
+  "appUrl": "https://randomthingsonlineatsk-cloud.github.io/reporting-guideline-navigator/",
+  "name": "Asha Rao",
+  "userId": "U-test-0001",
+  "issued": "2026-11-24",
+  "basis": "asha rao|RG1:100,RG2:100,RG3:100,RG4:100,RG5:100,RG6:100,RG7:100,RG8:100,RG9:100,RG10:100,RG11:100,RG12:100,RG13:100,RG14:100,RG15:100,RG16:100|quiz:13/13|U-test-0001",
+  "code": "RG-70BA2-8C6D2",
+  "criteria": [
+    {
+      "label": "RG1 Choose the guideline passed",
+      "met": true
+    },
+    {
+      "label": "RG2 Find the missing CONSORT items passed",
+      "met": true
+    },
+    {
+      "label": "RG3 Write the abstract passed",
+      "met": true
+    },
+    {
+      "label": "RG4 Resolve an authorship dispute passed",
+      "met": true
+    },
+    {
+      "label": "RG5 Disclosures and statements passed",
+      "met": true
+    },
+    {
+      "label": "RG6 Answer the reviewers passed",
+      "met": true
+    },
+    {
+      "label": "All 13 Learn quizzes passed (6 of 8 or better)",
+      "met": true
+    }
+  ],
+  "distinction": true,
+  "alg": "cyrb53",
+  "notice": "Portfolio certificate from a training app. Not an accreditation.",
+  "seal": "16283833045f40"
+}

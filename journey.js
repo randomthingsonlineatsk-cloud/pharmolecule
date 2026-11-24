@@ -248,6 +248,28 @@ export const STEPS = [
       return r;
     },
   },
+  {
+    id: 'publish', phase: 'Publication', title: 'Publish the primary results', app: 'Reporting Guideline Navigator', url: GH + 'reporting-guideline-navigator/',
+    story: 'The VERDANT-1 results go to a journal as well as to the regulators. The paper is checked item by item against CONSORT 2025, the abstract keeps to the journal’s limits with every number traced to the study outputs and the trial registration number, the authors are those who meet all four ICMJE criteria, and the medical writing support is acknowledged with its funder, as GPP 2022 asks.',
+    todo: ['In the Reporting Guideline Navigator, open the VERDANT-1 article from the library (not a mission).', 'In the Checklist workspace, tag every CONSORT 2025 item; none may be missing.', 'On the Abstract page, write the Fennick Journal abstract until every check passes, with the registration number.', 'On the Authorship page, list the authors, each meeting all four ICMJE criteria, and write the writing acknowledgement.', 'On the Export page, download “Journey hand-off (.json)”.'],
+    file: 'Reporting Guideline Navigator hand-off (.json)',
+    check(j) {
+      const r = res();
+      if (!need(r, j?.format === 'reporting-guideline-navigator-handoff', 'This is not a Reporting Guideline Navigator hand-off. Download it from the Export page (Journey hand-off).')) return r;
+      need(r, j.study?.id === 'HRP-301', `This paper is for ${j.study?.id}. Open the VERDANT-1 (HRP-301) article.`);
+      need(r, j.study?.kind !== 'mission', 'This is a mission project. Open the VERDANT-1 article from the library for the journey.');
+      need(r, (j.consort?.untagged ?? [1]).length === 0, `CONSORT 2025 items still untagged: ${(j.consort?.untagged ?? []).slice(0, 10).join(', ')}${(j.consort?.untagged ?? []).length > 10 ? '…' : ''}.`);
+      need(r, (j.consort?.missing ?? [1]).length === 0, `CONSORT 2025 items marked missing: ${(j.consort?.missing ?? []).join(', ')}.`);
+      if (need(r, j.abstract, 'No Fennick Journal abstract yet. Write it on the Abstract page.')) {
+        need(r, (j.abstract.failed ?? [1]).length === 0, `Abstract checks failing: ${(j.abstract.failed ?? []).join('; ')}.`);
+        need(r, j.abstract.registration === j.registration?.expected, `The abstract gives the registration as ${j.abstract.registration ?? 'nothing'}; it is ${j.registration?.expected}.`);
+      }
+      if (need(r, (j.authorship?.authors ?? 0) >= 1, 'No authors listed. Add them on the Authorship page.')) need(r, j.authorship.meetingAllFour === j.authorship.authors, `${j.authorship.authors - j.authorship.meetingAllFour} author(s) do not meet all four ICMJE criteria.`);
+      need(r, j.acknowledgement?.ok, 'The medical writing acknowledgement is missing or incomplete: name the writer, their qualification, the company and who paid.');
+      r.found.push(`“${j.study?.project}”`, `CONSORT 2025: ${(j.consort?.items ?? 0) - (j.consort?.untagged ?? []).length} of ${j.consort?.items} items tagged`, `Abstract: ${j.abstract ? `${(j.abstract.failed ?? []).length} checks failing, registration ${j.abstract.registration ?? 'none'}` : 'not written'}`, `Authors: ${j.authorship?.authors ?? 0}, all four criteria met by ${j.authorship?.meetingAllFour ?? 0}`);
+      return r;
+    },
+  },
 ];
 
 export const STEP_IDS = STEPS.map((s) => s.id);

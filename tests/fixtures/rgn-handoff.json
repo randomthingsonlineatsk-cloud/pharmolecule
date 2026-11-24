@@ -1,0 +1,30 @@
+{
+  "format": "reporting-guideline-navigator-handoff",
+  "schema": 1,
+  "exportedUtc": "2026-11-24T12:00:00.000Z",
+  "study": {
+    "id": "HRP-301",
+    "project": "VERDANT-1 primary paper",
+    "kind": "own"
+  },
+  "consort": {
+    "items": 42,
+    "untagged": [],
+    "missing": []
+  },
+  "abstract": {
+    "venue": "fennick",
+    "failed": [],
+    "registration": "NCT99930101"
+  },
+  "registration": {
+    "expected": "NCT99930101"
+  },
+  "authorship": {
+    "authors": 2,
+    "meetingAllFour": 2
+  },
+  "acknowledgement": {
+    "ok": true
+  }
+}
